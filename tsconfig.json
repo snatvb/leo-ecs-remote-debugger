@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@public/*": ["public/*"],
+      "@main/*": ["src/main/*"],
+      "@models/*": ["src/models/*"],
+      "@renderer/*": ["src/renderer/*"],
+      "@commonTypes/*": ["src/commonTypes/*"],
+      "@store/*": ["src/renderer/store/*"],
+      "@helpers/*": ["src/renderer/helpers/*"],
+      "@context/*": ["src/renderer/context/*"],
+      "@theme/*": ["src/renderer/theme/*"],
+      "@utils/*": ["src/utils/*"]
+    },
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "target": "esnext"
+  },
+  "exclude": ["node_modules"]
+}
