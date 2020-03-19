@@ -17,26 +17,36 @@ export const Theme = {
       first: '#007F40',
       second: '#2e768d',
     },
+    error: {
+      default: '#F23D3D',
+      dark: '#993333',
+    },
   },
   size: {
     font: {
-      s: '12px',
-      m: '14px',
-      l: '16px',
-      xl: '18px',
-      xxl: '24px',
+      s: 12,
+      m: 14,
+      l: 16,
+      xl: 18,
+      xxl: 24,
     },
   },
   offset: {
-    xxxs: '1px',
-    xxs: '2px',
-    xs: '3px',
-    s: '5px',
-    m: '10px',
-    l: '15px',
-    xl: '20px',
+    xxxs: 1,
+    xxs: 2,
+    xs: 3,
+    s: 5,
+    m: 10,
+    l: 15,
+    xl: 20,
   },
   borderRadius: {
-    default: '3px',
-  }
+    default: 3,
+  },
+  footer: {
+    height: 30,
+  },
+  transition: {
+    default: 'all 300ms ease',
+  },
 }

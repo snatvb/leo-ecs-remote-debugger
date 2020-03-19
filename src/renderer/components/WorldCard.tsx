@@ -6,18 +6,19 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
-  font-size: ${Theme.size.font.xl};
-  margin: ${Theme.offset.xl};
+  font-size: ${Theme.size.font.xl}px;
+  margin: ${Theme.offset.m}px;
   background: ${Theme.color.bg.medium};
-  border-radius: ${Theme.borderRadius.default};
+  border-radius: ${Theme.borderRadius.default}px;
   cursor: pointer;
+  -webkit-app-region: no-drag;
 `
 
 const Header = styled.div`
   background: ${Theme.color.bg.light};
-  border-top-left-radius: ${Theme.borderRadius.default};
-  border-top-right-radius: ${Theme.borderRadius.default};
-  padding: ${Theme.offset.m} ${Theme.offset.l};
+  border-top-left-radius: ${Theme.borderRadius.default}px;
+  border-top-right-radius: ${Theme.borderRadius.default}px;
+  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,7 +35,7 @@ const RemoveLink = styled.div`
 `
 
 const Content = styled.div`
-  padding: ${Theme.offset.m} ${Theme.offset.l};
+  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
 `
 
 export type Props = Readonly<{
@@ -52,8 +53,8 @@ export const WorldCard = observer(({ id }: Props) => {
   }, [store, id])
 
   const handleOpen = React.useCallback(() => {
-    store.ui.setFirstWorld(id)
-    screen.change(Screen.World)
+    store.ui.openWorld(id)
+    screen.change(Screen.Worlds)
   }, [store, id, screen])
 
   return store.getWorld(id).caseOf({

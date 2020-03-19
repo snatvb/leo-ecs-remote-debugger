@@ -5,10 +5,10 @@ import styled from 'styled-components'
 import { EntityComponent } from './EntityComponent'
 
 const Container = styled.div`
-  font-size: ${Theme.size.font.xl};
-  margin: ${Theme.offset.xl};
+  font-size: ${Theme.size.font.xl}px;
+  margin: ${Theme.offset.xl}px;
   background: ${Theme.color.bg.dark};
-  border-radius: ${Theme.borderRadius.default};
+  border-radius: ${Theme.borderRadius.default}px;
   cursor: pointer;
 `
 
@@ -16,16 +16,16 @@ const Header = styled.div`
   background: ${Theme.color.bg.medium};
   border: 1px solid ${Theme.color.bg.dark};
   border-bottom: none;
-  border-top-left-radius: ${Theme.borderRadius.default};
-  border-top-right-radius: ${Theme.borderRadius.default};
-  padding: ${Theme.offset.m} ${Theme.offset.l};
+  border-top-left-radius: ${Theme.borderRadius.default}px;
+  border-top-right-radius: ${Theme.borderRadius.default}px;
+  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
   display: flex;
   align-items: center;
 `
 const Content = styled.div`
-  border-bottom-left-radius: ${Theme.borderRadius.default};
-  border-bottom-right-radius: ${Theme.borderRadius.default};
-  padding: ${Theme.offset.m} ${Theme.offset.l};
+  border-bottom-left-radius: ${Theme.borderRadius.default}px;
+  border-bottom-right-radius: ${Theme.borderRadius.default}px;
+  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;

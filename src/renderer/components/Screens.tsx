@@ -1,15 +1,15 @@
 import { Screen, screenContext } from '@context/screen'
 import * as React from 'react'
 import { Worlds } from './Worlds'
-import { WorldScreen } from './WorldScreen'
+import { WorldsScreen } from './WorldsScreen'
 
 const Screens = React.memo(() => {
   const screen = React.useContext(screenContext)
   switch (screen.current) {
     case Screen.Main:
       return <Worlds />
-    case Screen.World:
-      return <WorldScreen />
+    case Screen.Worlds:
+      return <WorldsScreen />
     default:
       return null
   }

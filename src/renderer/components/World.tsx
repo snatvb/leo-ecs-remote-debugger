@@ -7,26 +7,26 @@ import styled from 'styled-components'
 import { EntityStore } from './EntityStore'
 
 const Container = styled.div`
-  font-size: ${Theme.size.font.xl};
-  margin: ${Theme.offset.xl};
+  font-size: ${Theme.size.font.xl}px;
   background: ${Theme.color.bg.medium};
-  border-radius: ${Theme.borderRadius.default};
+  border-radius: ${Theme.borderRadius.default}px;
+  -webkit-app-region: no-drag;
 `
 
 const NotFound = styled.div`
-  font-size: ${Theme.size.font.xl};
-  margin: ${Theme.offset.xl};
+  font-size: ${Theme.size.font.xl}px;
+  margin: ${Theme.offset.xl}px;
   background: ${Theme.color.bg.medium};
-  border-radius: ${Theme.borderRadius.default};
-  padding: ${Theme.offset.m} ${Theme.offset.l};
+  border-radius: ${Theme.borderRadius.default}px;
+  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
   text-align: center;
 `
 
 const Header = styled.div`
   background: ${Theme.color.bg.light};
-  border-top-left-radius: ${Theme.borderRadius.default};
-  border-top-right-radius: ${Theme.borderRadius.default};
-  padding: ${Theme.offset.m} ${Theme.offset.l};
+  border-top-left-radius: ${Theme.borderRadius.default}px;
+  border-top-right-radius: ${Theme.borderRadius.default}px;
+  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
   display: flex;
   justify-content: space-between;
 `
@@ -41,11 +41,11 @@ const RemoveLink = styled.div`
 `
 
 const Content = styled.div`
-  padding: ${Theme.offset.m} ${Theme.offset.l};
+  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
 `
 
 const Empty = styled.div`
-  padding: ${Theme.offset.m} ${Theme.offset.l};
+  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
 `
 
 export type Props = Readonly<{

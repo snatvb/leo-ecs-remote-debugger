@@ -5,26 +5,26 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   border: 1px solid ${Theme.color.bg.extraDark};
-  font-size: ${Theme.size.font.xl};
-  margin: ${Theme.offset.xl};
+  font-size: ${Theme.size.font.xl}px;
+  margin: ${Theme.offset.xl}px;
   background: ${Theme.color.darkAction};
-  border-radius: ${Theme.borderRadius.default};
+  border-radius: ${Theme.borderRadius.default}px;
   cursor: pointer;
 `
 
 const Header = styled.div`
   background: ${Theme.color.bg.extraDark};
-  border-top-left-radius: ${Theme.borderRadius.default};
-  border-top-right-radius: ${Theme.borderRadius.default};
-  padding: ${Theme.offset.m} ${Theme.offset.l};
+  border-top-left-radius: ${Theme.borderRadius.default}px;
+  border-top-right-radius: ${Theme.borderRadius.default}px;
+  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
   display: flex;
   align-items: center;
 `
 const Content = styled.div`
   background: ${Theme.color.bg.dark};
-  border-bottom-left-radius: ${Theme.borderRadius.default};
-  border-bottom-right-radius: ${Theme.borderRadius.default};
-  padding: ${Theme.offset.m} ${Theme.offset.l};
+  border-bottom-left-radius: ${Theme.borderRadius.default}px;
+  border-bottom-right-radius: ${Theme.borderRadius.default}px;
+  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
   display: flex;
   align-items: center;
 `

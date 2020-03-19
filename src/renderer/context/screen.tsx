@@ -2,7 +2,7 @@ import * as React from 'react'
 
 export enum Screen {
   Main,
-  World,
+  Worlds,
   Tabs,
 }
 

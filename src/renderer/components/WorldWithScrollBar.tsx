@@ -1,3 +1,5 @@
+import { useGetHeight } from '@helpers/hooks/useGetHeight'
+import { Theme } from '@theme/default'
 import * as React from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
 import styled from 'styled-components'
@@ -9,33 +11,24 @@ const Container = styled.div`
   overflow: hidden;
 `
 
+const WorldWrapper = styled.div`
+  padding: 0 ${Theme.offset.l}px;
+  box-sizing: border-box;
+`
+
 export type Props = Readonly<{
   id: number
 }>
 
 export const WorldWithScrollBar = React.memo(({ id }: Props) => {
-  const [height, setHeight] = React.useState(0)
-  const containerRef = React.useRef<HTMLDivElement>(null)
-
-  React.useEffect(() => {
-    const updateHeight = () => {
-      if (containerRef.current) {
-        setHeight(containerRef.current.clientHeight)
-      }
-    }
-
-    updateHeight()
-    window.addEventListener('resize', updateHeight)
-
-    return () => {
-      window.removeEventListener(' resize', updateHeight)
-    }
-  }, [])
+  const [height, containerRef] = useGetHeight()
 
   return (
     <Container ref={containerRef}>
       <Scrollbars autoHeight autoHeightMax={height}>
-        <World id={id} />
+        <WorldWrapper>
+          <World id={id} />
+        </WorldWrapper>
       </Scrollbars>
     </Container>
   )

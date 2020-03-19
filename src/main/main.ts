@@ -1,7 +1,7 @@
 /**
  * Entry point of the Election app.
  */
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
 import * as ws from './ws'
@@ -10,12 +10,18 @@ let mainWindow: Electron.BrowserWindow | null
 function createWindow(): void {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    height: 768,
+    width: 1366,
+    minHeight: 480,
+    minWidth: 640,
     webPreferences: {
       webSecurity: false,
       devTools: process.env.NODE_ENV === 'production' ? false : true
-    }
+    },
+    frame: false,
+    transparent: true,
+    resizable: true,
+    center: true,
   })
   const closeSocket = ws.create(mainWindow)
 
@@ -37,6 +43,11 @@ function createWindow(): void {
     mainWindow = null
   })
 }
+
+ipcMain.on('app-close', () => {
+  console.log('close')
+  app.quit()
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
