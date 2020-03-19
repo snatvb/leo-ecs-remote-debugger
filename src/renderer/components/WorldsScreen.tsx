@@ -72,6 +72,14 @@ export const WorldsScreen = observer(() => {
   const noOneWorld = firstWorld.isNothing() && secondWorld.isNothing()
   const bothWorld = firstWorld.isJust() && secondWorld.isJust()
 
+  console.log('noOneWorld', noOneWorld)
+  React.useEffect(() => {
+    console.log('noOneWorld effect', noOneWorld)
+    if (noOneWorld) {
+      screen.change(Screen.Main)
+    }
+  }, [noOneWorld, screen.change])
+
   return (
     <Container>
       {noOneWorld && (

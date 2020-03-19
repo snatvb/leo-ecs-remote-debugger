@@ -4,11 +4,12 @@ import { EcsComponent } from './EcsComponent'
 
 export class EcsEntity {
   @observable
-  public components: EcsComponent[]
+  public components: EcsComponent[] = []
   public id: number
 
   constructor(id: number) {
     this.id = id
+    // TODO: Need remove
     // tslint:disable-next-line:insecure-random
     this.components = R.compose(
       R.map((x) => new EcsComponent(x.toString())),

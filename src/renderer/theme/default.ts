@@ -42,8 +42,13 @@ export const Theme = {
   },
   borderRadius: {
     default: 3,
+    l: 5,
+    xl: 8,
   },
   footer: {
+    height: 30,
+  },
+  header: {
     height: 30,
   },
   transition: {

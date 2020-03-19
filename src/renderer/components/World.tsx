@@ -10,7 +10,6 @@ const Container = styled.div`
   font-size: ${Theme.size.font.xl}px;
   background: ${Theme.color.bg.medium};
   border-radius: ${Theme.borderRadius.default}px;
-  -webkit-app-region: no-drag;
 `
 
 const NotFound = styled.div`

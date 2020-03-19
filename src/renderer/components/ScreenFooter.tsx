@@ -15,5 +15,4 @@ export const ScreenFooter = styled.div`
   background: ${Theme.color.action.first};
   cursor: pointer;
   z-index: 2;
-  -webkit-app-region: no-drag;
 `

@@ -31,7 +31,6 @@ const Close = styled.div`
   border-radius: 9999px;
   background: ${Theme.color.action.first};
   color: ${Theme.color.darkAction.first};
-  -webkit-app-region: no-drag;
 `
 
 export type Props = Readonly<{

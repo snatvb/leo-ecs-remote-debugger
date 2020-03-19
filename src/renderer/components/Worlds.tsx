@@ -30,11 +30,10 @@ const ScrollWrapper = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  -webkit-app-region: no-drag;
 `
 
 type ConfirmWrapperProps = {
-  display: boolean
+  show: boolean
 }
 
 const ConfirmWrapper = styled.div`
@@ -45,7 +44,7 @@ const ConfirmWrapper = styled.div`
   transform: translateY(100%) translateX(-50%);
   transition: transform 300ms cubic-bezier(.61,.01,.41,1.84);
 
-  ${({ display }: ConfirmWrapperProps) => display && css`
+  ${({ show }: ConfirmWrapperProps) => show && css`
     transform: translateY(-90%) translateX(-50%);
     -webkit-app-region: no-drag;
   `}
@@ -90,7 +89,7 @@ export const Worlds = React.memo(observer(() => {
           <FontAwesomeIcon icon={faDoorOpen} />
         </Exit>
       </ScreenFooter>
-      <ConfirmWrapper display={isShowingConfirmExit}>
+      <ConfirmWrapper show={isShowingConfirmExit}>
         <SmallConfirm
           onConfirm={handleConfirmExit}
           onCancel={handleCancelExit}

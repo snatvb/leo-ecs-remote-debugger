@@ -1,4 +1,4 @@
-import { computed, observable } from 'mobx'
+import { computed, observable, reaction } from 'mobx'
 import { Maybe } from 'monad-maniac'
 import { Nullable } from 'monad-maniac/types'
 import { Store } from '../Store'
@@ -12,6 +12,20 @@ export class UI {
 
   constructor(store: Store) {
     this.store = store
+
+    const handleChangeWorlds = (id: number) => {
+      if (store.getWorld(id).isNothing()) {
+        this.closeWorld(id)
+      }
+    }
+
+    reaction(
+      () => store.worlds.size,
+      () => {
+        this.firstWorld.map(handleChangeWorlds)
+        this.secondWorld.map(handleChangeWorlds)
+      }
+    )
   }
 
   @computed
@@ -39,7 +53,7 @@ export class UI {
       return
     }
 
-    if (this.isOpenSecond) {
+    if (this.isOpenSecond && this.firstWorld.isJust()) {
       this.setSecondWorld(value)
       this.isOpenSecond = false
     } else {

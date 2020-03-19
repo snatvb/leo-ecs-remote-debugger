@@ -11,7 +11,6 @@ const Container = styled.div`
   background: ${Theme.color.bg.medium};
   border-radius: ${Theme.borderRadius.default}px;
   cursor: pointer;
-  -webkit-app-region: no-drag;
 `
 
 const Header = styled.div`

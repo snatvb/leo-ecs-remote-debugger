@@ -20,7 +20,6 @@ const Button = styled.div`
   height: 24px;
   cursor: pointer;
   transition: ${Theme.transition.default};
-  -webkit-app-region: no-drag;
 `
 
 const Confirm = styled(Button)`

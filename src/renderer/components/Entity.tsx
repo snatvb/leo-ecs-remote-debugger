@@ -40,7 +40,12 @@ export const Entity = React.memo(({ value }: Props) => {
     <Container>
       <Header>Entity {value.id}</Header>
       <Content>
-        {value.components.map((component) => <EntityComponent value={component} />)}
+        {value.components.map((component, index) => (
+          <EntityComponent
+            key={`[${value.id}]-${component.name}-${index}`}
+            value={component}
+          />
+        ))}
       </Content>
     </Container>
   )

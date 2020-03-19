@@ -12,17 +12,35 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-radius: ${Theme.borderRadius.default};
   box-sizing: border-box;
 `
 
-const Draggable = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
+const Title = styled.div`
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  height: ${Theme.offset.xl}px;
+  height: ${Theme.header.height}px;
+  font-size: ${Theme.size.font.m}px;
+  background: ${Theme.color.action.first};
+  color: ${Theme.color.darkAction.first};
+  font-weight: bold;
+  padding: 0 ${Theme.offset.xl}px;
+  box-sizing: border-box;
   -webkit-app-region: drag;
+`
+
+const Content = styled.div`
+  z-index: 0;
+  position: absolute;
+  top: ${Theme.header.height}px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  box-sizing: border-box;
 `
 
 const GlobalStyle = createGlobalStyle`
@@ -45,11 +63,16 @@ const App = () => {
 
   return (
     <Container>
-      <Draggable />
+      <Title>
+        <div>Leo ECS</div>
+        <div>Remote Debugger</div>
+      </Title>
       <GlobalStyle />
-      <ScreenProvider>
-        <Screens />
-      </ScreenProvider>
+      <Content>
+        <ScreenProvider>
+          <Screens />
+        </ScreenProvider>
+      </Content>
     </Container>
   )
 }
