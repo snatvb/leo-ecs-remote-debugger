@@ -1,21 +1,19 @@
-import { EcsEntity } from '@store/Models/EcsEntity'
+import { EcsComponent } from '@store/Models/EcsComponent'
 import { Theme } from '@theme/default'
 import * as React from 'react'
 import styled from 'styled-components'
-import { EntityComponent } from './EntityComponent'
 
 const Container = styled.div`
+  border: 1px solid ${Theme.color.bg.extraDark};
   font-size: ${Theme.size.font.xl};
   margin: ${Theme.offset.xl};
-  background: ${Theme.color.bg.dark};
+  background: ${Theme.color.darkAction};
   border-radius: ${Theme.borderRadius.default};
   cursor: pointer;
 `
 
 const Header = styled.div`
-  background: ${Theme.color.bg.medium};
-  border: 1px solid ${Theme.color.bg.dark};
-  border-bottom: none;
+  background: ${Theme.color.bg.extraDark};
   border-top-left-radius: ${Theme.borderRadius.default};
   border-top-right-radius: ${Theme.borderRadius.default};
   padding: ${Theme.offset.m} ${Theme.offset.l};
@@ -23,24 +21,24 @@ const Header = styled.div`
   align-items: center;
 `
 const Content = styled.div`
+  background: ${Theme.color.bg.dark};
   border-bottom-left-radius: ${Theme.borderRadius.default};
   border-bottom-right-radius: ${Theme.borderRadius.default};
   padding: ${Theme.offset.m} ${Theme.offset.l};
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
 `
 
 export type Props = Readonly<{
-  value: EcsEntity
+  value: EcsComponent
 }>
 
-export const Entity = React.memo(({ value }: Props) => {
+export const EntityComponent = React.memo(({ value }: Props) => {
   return (
     <Container>
-      <Header>Entity {value.id}</Header>
+      <Header>{value.name}</Header>
       <Content>
-        {value.components.map((component) => <EntityComponent value={component} />)}
+        Some params
       </Content>
     </Container>
   )

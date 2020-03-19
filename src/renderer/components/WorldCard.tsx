@@ -6,16 +6,15 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
-  color: ${Theme.color.actionText};
   font-size: ${Theme.size.font.xl};
   margin: ${Theme.offset.xl};
-  background: ${Theme.color.darkAction};
+  background: ${Theme.color.bg.medium};
   border-radius: ${Theme.borderRadius.default};
   cursor: pointer;
 `
 
 const Header = styled.div`
-  background: ${Theme.color.action};
+  background: ${Theme.color.bg.light};
   border-top-left-radius: ${Theme.borderRadius.default};
   border-top-right-radius: ${Theme.borderRadius.default};
   padding: ${Theme.offset.m} ${Theme.offset.l};
@@ -29,6 +28,7 @@ const Title = styled.div`
 `
 
 const RemoveLink = styled.div`
+  color: ${Theme.color.link};
   text-decoration: underline;
   cursor: pointer;
 `

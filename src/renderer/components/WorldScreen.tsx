@@ -29,9 +29,8 @@ const NotFoundWrapper = styled.div`
 `
 
 const NotFound = styled.div`
-  color: ${Theme.color.actionText};
   font-size: ${Theme.size.font.xxl};
-  background: ${Theme.color.action};
+  background: ${Theme.color.bg.light};
   border-radius: ${Theme.borderRadius.default};
   padding: ${Theme.offset.xl};
 `
@@ -49,9 +48,9 @@ const BackToMainScreen = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  color: ${Theme.color.actionText};
+  color: ${Theme.color.darkAction.first};
   font-size: ${Theme.size.font.xl};
-  background: ${Theme.color.action};
+  background: ${Theme.color.action.first};
   padding-left: ${Theme.offset.l};
   cursor: pointer;
 `

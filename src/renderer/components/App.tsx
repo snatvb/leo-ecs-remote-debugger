@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { Screens } from './Screens'
 
 const Container = styled.div`
-  background: ${Theme.color.bg};
+  background: ${Theme.color.bg.dark};
   color: ${Theme.color.text};
   width: 100%;
   height: 100%;

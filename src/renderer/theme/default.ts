@@ -1,13 +1,22 @@
 
 export const Theme = {
   color: {
-    text: '#EFEFEF',
-    bg: '#0D0D0D',
-    action: '#F2CB05',
-    actionText: '#0D0D0D',
-    darkAction: '#F2B807',
-    bgAction: '#A6710F',
-    accent: '#6BB3F2',
+    text: '#EEEEEE',
+    link: '#00F382',
+    bg: {
+      extraDark: '#1F2022',
+      dark: '#2C3032',
+      medium: '#343639',
+      light: '#45474B',
+    },
+    action: {
+      first: '#00F37E',
+      second: '#16D6E2',
+    },
+    darkAction: {
+      first: '#007F40',
+      second: '#2e768d',
+    },
   },
   size: {
     font: {
