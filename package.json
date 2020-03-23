@@ -44,7 +44,7 @@
     "events": "3.1.0",
     "mobx": "5.15.4",
     "mobx-react": "6.1.8",
-    "monad-maniac": "0.5.1",
+    "monad-maniac": "0.5.2",
     "polished": "3.4.4",
     "ramda": "0.27.0",
     "react": "16.12.0",

@@ -4109,10 +4109,10 @@ mocha@5.2.0:
     mkdirp "0.5.1"
     supports-color "5.4.0"
 
-monad-maniac@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/monad-maniac/-/monad-maniac-0.5.1.tgz#42b124f5bb0eee0b8caad5f2eccaab3156276753"
-  integrity sha512-ndj58fAGX4ziJp+iQP00gsufWCLG+QTkSf8efianOhZEo8vMKvZqvPZBue7ky98mZwfp2dNut648FU0gTZLUJA==
+monad-maniac@0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/monad-maniac/-/monad-maniac-0.5.2.tgz#938941386ecc1b69fbd78dec61e4fc0fad52b213"
+  integrity sha512-Sd637C8nzx0p4zVTykk3G4Fxqcj05LovGx837+TxsGyx0lf2YQ89NWazZZDUSm4TEIIvbppmg+bv8j/NTeCiWw==
 
 move-concurrently@^1.0.1:
   version "1.0.1"

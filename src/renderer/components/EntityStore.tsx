@@ -13,8 +13,7 @@ export const EntityStore = React.memo(observer(({ worldId, id }: Props) => {
 
   return store
     .getWorld(worldId)
-    .map((world) => world.getEntity(id))
-    .join()
+    .chain((world) => world.getEntity(id))
     .caseOf({
       Nothing: () => null,
       Just: (entity) => <Entity value={entity} />,
