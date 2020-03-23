@@ -13,10 +13,11 @@ const createIdCounter = () => {
   return () => id++
 }
 
+/*
+Will need in future
+
 const findIdByWS = (clients: Clients, clientToFind: WS) => {
-  for (const entry in clients.entries()) {
-    // tslint:disable-next-line:prefer-type-cast
-    const [id, client] = (entry as unknown as [number, WS])
+  for (const [id, client] of clients.entries()) {
     if (client === clientToFind) {
       return id
     }
@@ -24,6 +25,7 @@ const findIdByWS = (clients: Clients, clientToFind: WS) => {
 
   return -1
 }
+*/
 
 export const create = (window: BrowserWindow) => {
   const getId = createIdCounter()

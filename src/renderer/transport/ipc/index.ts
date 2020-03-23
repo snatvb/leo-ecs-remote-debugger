@@ -1,8 +1,7 @@
-import { RemoteCommand } from '@/commonTypes/api'
+import * as transport from '@transport'
 import { ipcRenderer } from 'electron'
 import { EventEmitter } from 'events'
-import { Either } from 'monad-maniac'
-import { CommandHandler, ConnectionEventType, ConnectionHandler, IServerService } from '../data-worker'
+import { CommandHandler, ConnectionEventType, ConnectionHandler, IServerService } from '../'
 
 const handleConnection = (emitter: EventEmitter) => {
   ipcRenderer.on('socket-connected', (_: any, id: number) => {
@@ -18,14 +17,13 @@ const handleDisconnected = (emitter: EventEmitter) => {
 
 const handleMessage = (emitter: EventEmitter) => {
   ipcRenderer.on('socket-message', (_: any, clientId: number, data: string) => {
-    Either
-      .attempt(() => JSON.parse(data) as RemoteCommand, [])
+    transport.decode(data)
       .caseOf({
         Left: (error) => {
           console.error('Catch error by receive from socket', error)
         },
-        Right: (message) => {
-          emitter.emit('command', clientId, message)
+        Right: (command) => {
+          emitter.emit('command', clientId, command)
         }
       })
   })

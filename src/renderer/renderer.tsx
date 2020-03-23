@@ -6,11 +6,10 @@ import '@public/normalize.css'
 import '@public/style.css'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import * as api from './api'
 import { App } from './components/App'
-import * as dataWorker from './data-worker'
+import * as dataWorker from './transport'
 
-dataWorker.initialize(api.initialize())
+dataWorker.initialize()
 
 ReactDOM.render(
   <App />,

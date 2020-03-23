@@ -25,6 +25,7 @@ const commonConfig = {
       '@public': srcPaths('public'),
       '@renderer': srcPaths('src/renderer'),
       '@utils': srcPaths('src/utils'),
+      '@transport': srcPaths('src/transport'),
       '@helpers': srcPaths('src/renderer/helpers'),
       '@context': srcPaths('src/renderer/context'),
       '@theme': srcPaths('src/renderer/theme'),
