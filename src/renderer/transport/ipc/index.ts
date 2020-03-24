@@ -59,5 +59,15 @@ export const initialize = (): IServerService => {
     off(eventName: 'command' | ConnectionEventType, cb: CommandHandler | ConnectionHandler) {
       addAndRemoveListener('off', eventName, cb)
     },
+    sendCommand(clientId, cmd) {
+      transport.serialize(cmd).caseOf({
+        Right: (message) => {
+          ipcRenderer.send('socket-send-message', clientId, message)
+        },
+        Left: (error) => {
+          console.error(error)
+        }
+      })
+    },
   }
 }

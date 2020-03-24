@@ -9,10 +9,13 @@ export class EntityDataResponseCommand implements IRemoteCommand {
   constructor(id: number, generation: number, components: string[] = []) {
       this.id = id
       this.generation = generation
-      this.components = {}
+      this.components = []
       if (components.length > 0) {
           for (let i = 0; i < components.length; i += 2) {
-              this.components[components[i]] = components[i + 1]
+              this.components.push({
+                name: components[i],
+                data: components[i + 1],
+              })
           }
       }
   }
@@ -20,13 +23,16 @@ export class EntityDataResponseCommand implements IRemoteCommand {
   public getCommandType() {
     return RemoteCommandType.EntityDataResponse
   }
+
   public getEntityId(): number {
     return this.id
   }
+
   public getEntityGeneration(): number {
     return this.generation
   }
-  public getEntityData(): Components {
+
+  public getComponents(): Components {
     return this.components
   }
 }

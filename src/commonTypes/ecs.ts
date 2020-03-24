@@ -1,3 +1,6 @@
-export type Components = {
-  [name: string]: string
+export type CmdEcsComponent = {
+  name: string,
+  data: string,
 }
+
+export type Components = CmdEcsComponent[]

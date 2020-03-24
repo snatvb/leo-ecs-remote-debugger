@@ -38,7 +38,7 @@ export const EntityComponent = React.memo(({ value }: Props) => {
     <Container>
       <Header>{value.name}</Header>
       <Content>
-        Some params
+        {value.data}
       </Content>
     </Container>
   )

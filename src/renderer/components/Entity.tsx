@@ -1,3 +1,4 @@
+import { map } from '@helpers/map'
 import { EcsEntity } from '@store/Models/EcsEntity'
 import { Theme } from '@theme/default'
 import * as React from 'react'
@@ -46,7 +47,7 @@ const getContentState = (entity: EcsEntity): ContentState => {
     return ContentState.Pending
   }
 
-  if (entity.components.length > 0) {
+  if (entity.components.size > 0) {
     return ContentState.Ok
   }
 
@@ -60,12 +61,12 @@ export const Entity = React.memo(({ value }: Props) => {
     <Container>
       <Header>Entity {value.id}</Header>
       <Content>
-        {contentState === ContentState.Ok && value.components.map((component, index) => (
+        {contentState === ContentState.Ok && map((component, index) => (
           <EntityComponent
             key={`[${value.id}]-${component.name}-${index}`}
             value={component}
           />
-        ))}
+        ), value.components.values())}
         {contentState === ContentState.Pending && 'Loading...'}
         {contentState === ContentState.Invalid && 'Error: entity without component. Memory leaked.'}
       </Content>

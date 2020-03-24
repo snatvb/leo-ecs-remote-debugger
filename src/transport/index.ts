@@ -1,16 +1,16 @@
-import { IRemoteCommand, IRemoteCommandRaw, RemoteCommandType } from '@commonTypes/commands'
+import { IRemoteCommand, RemoteCommandRaw, RemoteCommandType } from '@commonTypes/commands'
 import { Either } from 'monad-maniac'
 import { EntityChangedCommand } from './EntityChangedCommand'
 import { EntityCreatedCommand } from './EntityCreatedCommand'
 import { EntityDataResponseCommand } from './EntityDataResponseCommand'
 import { EntityDestroyedCommand } from './EntityDestroyedCommand'
 
-const parse = (json: string): Either.Shape<Error, IRemoteCommandRaw> => (
+const parse = (json: string): Either.Shape<Error, RemoteCommandRaw> => (
   Either
-    .attempt(() => JSON.parse(json) as IRemoteCommandRaw, [])
-    .chain((cmdRaw): Either.Shape<Error, IRemoteCommandRaw> => {
+    .attempt(() => JSON.parse(json) as RemoteCommandRaw, [])
+    .chain((cmdRaw): Either.Shape<Error, RemoteCommandRaw> => {
       if (typeof cmdRaw.t !== 'number' || typeof cmdRaw.i !== 'number' || typeof cmdRaw.g !== 'number') {
-        return Either.left(new Error(`invalid command: ${json}`))
+        return Either.left(new Error(`Invalid command: ${json}`))
       }
 
       return Either.right(cmdRaw)
@@ -30,14 +30,13 @@ export const decode = (json: string): Either.Shape<Error, IRemoteCommand> => (
         return Either.right(new EntityChangedCommand(cmdRaw.i, cmdRaw.g))
 
       case RemoteCommandType.EntityDataResponse:
-        const cRaw = cmdRaw.c
-        if (!Array.isArray(cRaw)) {
-          return Either.left(new Error(`invalid command: ${json}`))
+        if (!('c' in cmdRaw) || !Array.isArray(cmdRaw.c)) {
+          return Either.left(new Error(`Invalid command: ${json}`))
         }
 
-        return Either.right(new EntityDataResponseCommand(cmdRaw.i, cmdRaw.g, cRaw))
+        return Either.right(new EntityDataResponseCommand(cmdRaw.i, cmdRaw.g, cmdRaw.c))
       default:
-        return Either.left(new Error(`invalid command: ${json}`))
+        return Either.left(new Error(`Invalid command: ${json}`))
     }
   })
 )

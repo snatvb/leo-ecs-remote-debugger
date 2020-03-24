@@ -15,6 +15,7 @@ export interface IServerService {
   on(eventName: ConnectionEventType, handler: ConnectionHandler): void
   off(eventName: 'command', handler: CommandHandler): void
   off(eventName: ConnectionEventType, handler: ConnectionHandler): void
+  sendCommand(clientId: number, cmd: IRemoteCommand): void
 }
 
 export const initialize = () => {

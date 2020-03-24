@@ -1,4 +1,5 @@
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, ipcMain } from 'electron'
+import { Either } from 'monad-maniac'
 import * as WS from 'ws'
 
 export type MessageHandler = (clientId: number, message: string) => any
@@ -14,7 +15,7 @@ const createIdCounter = () => {
 }
 
 /*
-Will need in future
+Maybe will need in future
 
 const findIdByWS = (clients: Clients, clientToFind: WS) => {
   for (const [id, client] of clients.entries()) {
@@ -26,6 +27,12 @@ const findIdByWS = (clients: Clients, clientToFind: WS) => {
   return -1
 }
 */
+
+const getClient = (clients: Clients, id: number): Either.Shape<Error, WS> => {
+  const client = clients.get(id)
+
+  return client ? Either.right(client) : Either.left(new Error(`Client ${id} not found`))
+}
 
 export const create = (window: BrowserWindow) => {
   const getId = createIdCounter()
@@ -46,6 +53,18 @@ export const create = (window: BrowserWindow) => {
     })
 
     window.webContents.send('socket-connected', id)
+  })
+
+  ipcMain.on('socket-send-message', (_: any, clientId: number, data: string) => {
+    console.log('data', data)
+    getClient(clients, clientId).caseOf({
+      Right: (client) => {
+        client.send(data)
+      },
+      Left: (error) => {
+        console.error(error)
+      }
+    })
   })
 
   return () => {

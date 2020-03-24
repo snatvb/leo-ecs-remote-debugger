@@ -54,7 +54,6 @@ export type Props = Readonly<{
 export const World = React.memo(observer(({ id }: Props) => {
   const store = useStore()
 
-  console.log(store.getWorld(id))
   const handleRemove = React.useCallback(() => {
     store.removeWorld(id)
   }, [store, id])
