@@ -10,6 +10,7 @@ export interface IRemoteCommandRaw {
   t: number
   i: number
   g: number
+  c?: string[]
 }
 
 export interface IRemoteCommand {

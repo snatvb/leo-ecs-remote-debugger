@@ -30,12 +30,12 @@ export const decode = (json: string): Either.Shape<Error, IRemoteCommand> => (
         return Either.right(new EntityChangedCommand(cmdRaw.i, cmdRaw.g))
 
       case RemoteCommandType.EntityDataResponse:
-        const cRaw = (cmdRaw as any).c
+        const cRaw = cmdRaw.c
         if (!Array.isArray(cRaw)) {
           return Either.left(new Error(`invalid command: ${json}`))
         }
 
-        return Either.right(new EntityDataResponseCommand(cmdRaw.i, cmdRaw.g, cRaw as string[]))
+        return Either.right(new EntityDataResponseCommand(cmdRaw.i, cmdRaw.g, cRaw))
       default:
         return Either.left(new Error(`invalid command: ${json}`))
     }

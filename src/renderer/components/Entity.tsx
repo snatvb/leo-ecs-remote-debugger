@@ -6,7 +6,7 @@ import { EntityComponent } from './EntityComponent'
 
 const Container = styled.div`
   font-size: ${Theme.size.font.xl}px;
-  margin: ${Theme.offset.xl}px;
+  margin: ${Theme.offset.m}px;
   background: ${Theme.color.bg.dark};
   border-radius: ${Theme.borderRadius.default}px;
   cursor: pointer;
@@ -35,17 +35,39 @@ export type Props = Readonly<{
   value: EcsEntity
 }>
 
+enum ContentState {
+  Pending,
+  Invalid,
+  Ok,
+}
+
+const getContentState = (entity: EcsEntity): ContentState => {
+  if (!entity.loaded) {
+    return ContentState.Pending
+  }
+
+  if (entity.components.length > 0) {
+    return ContentState.Ok
+  }
+
+  return ContentState.Invalid
+}
+
 export const Entity = React.memo(({ value }: Props) => {
+  const contentState = getContentState(value)
+
   return (
     <Container>
       <Header>Entity {value.id}</Header>
       <Content>
-        {value.components.map((component, index) => (
+        {contentState === ContentState.Ok && value.components.map((component, index) => (
           <EntityComponent
             key={`[${value.id}]-${component.name}-${index}`}
             value={component}
           />
         ))}
+        {contentState === ContentState.Pending && 'Loading...'}
+        {contentState === ContentState.Invalid && 'Error: entity without component. Memory leaked.'}
       </Content>
     </Container>
   )

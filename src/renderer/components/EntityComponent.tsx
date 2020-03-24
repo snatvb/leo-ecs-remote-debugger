@@ -6,7 +6,7 @@ import styled from 'styled-components'
 const Container = styled.div`
   border: 1px solid ${Theme.color.bg.extraDark};
   font-size: ${Theme.size.font.xl}px;
-  margin: ${Theme.offset.xl}px;
+  margin: ${Theme.offset.m}px;
   background: ${Theme.color.darkAction};
   border-radius: ${Theme.borderRadius.default}px;
   cursor: pointer;
