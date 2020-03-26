@@ -2,30 +2,21 @@ import { computed, observable, reaction } from 'mobx'
 import { Maybe } from 'monad-maniac'
 import { Nullable } from 'monad-maniac/types'
 import { Store } from '../Store'
+import { RequestPeriod } from './RequestPeriod'
 
 export class UI {
   @observable
   public isOpenSecond: boolean = false
+  public requestPeriod: RequestPeriod
   @observable
   private openedWorlds: [Nullable<number>, Nullable<number>] = [undefined, undefined]
   private store: Store
 
   constructor(store: Store) {
     this.store = store
+    this.requestPeriod = new RequestPeriod(store)
 
-    const handleChangeWorlds = (id: number) => {
-      if (store.getWorld(id).isNothing()) {
-        this.closeWorld(id)
-      }
-    }
-
-    reaction(
-      () => store.worlds.size,
-      () => {
-        this.firstWorld.map(handleChangeWorlds)
-        this.secondWorld.map(handleChangeWorlds)
-      }
-    )
+    this.initialize()
   }
 
   @computed
@@ -68,5 +59,23 @@ export class UI {
     if (this.openedWorlds[1] === value) {
       this.openedWorlds[1] = undefined
     }
+  }
+
+  private initialize() {
+    const store = this.store
+
+    const handleChangeWorlds = (id: number) => {
+      if (store.getWorld(id).isNothing()) {
+        this.closeWorld(id)
+      }
+    }
+
+    reaction(
+      () => store.worlds.size,
+      () => {
+        this.firstWorld.map(handleChangeWorlds)
+        this.secondWorld.map(handleChangeWorlds)
+      }
+    )
   }
 }

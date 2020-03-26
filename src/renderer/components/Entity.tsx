@@ -1,6 +1,7 @@
 import { map } from '@helpers/map'
 import { EcsEntity } from '@store/Models/EcsEntity'
 import { Theme } from '@theme/default'
+import { observer } from 'mobx-react'
 import * as React from 'react'
 import styled from 'styled-components'
 import { EntityComponent } from './EntityComponent'
@@ -54,7 +55,7 @@ const getContentState = (entity: EcsEntity): ContentState => {
   return ContentState.Invalid
 }
 
-export const Entity = React.memo(({ value }: Props) => {
+export const Entity = React.memo(observer(({ value }: Props) => {
   const contentState = getContentState(value)
 
   return (
@@ -72,4 +73,4 @@ export const Entity = React.memo(({ value }: Props) => {
       </Content>
     </Container>
   )
-})
+}))

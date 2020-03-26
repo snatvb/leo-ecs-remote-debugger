@@ -1,5 +1,6 @@
 import { EcsComponent } from '@store/Models/EcsComponent'
 import { Theme } from '@theme/default'
+import { observer } from 'mobx-react'
 import * as React from 'react'
 import styled from 'styled-components'
 
@@ -33,7 +34,7 @@ export type Props = Readonly<{
   value: EcsComponent
 }>
 
-export const EntityComponent = React.memo(({ value }: Props) => {
+export const EntityComponent = React.memo(observer(({ value }: Props) => {
   return (
     <Container>
       <Header>{value.name}</Header>
@@ -42,4 +43,4 @@ export const EntityComponent = React.memo(({ value }: Props) => {
       </Content>
     </Container>
   )
-})
+}))

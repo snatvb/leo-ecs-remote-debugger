@@ -7,9 +7,11 @@ import '@public/style.css'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { App } from './components/App'
-import * as dataWorker from './transport'
+import * as sideEffects from './side-effects'
+import * as transport from './transport'
 
-dataWorker.initialize()
+const transportApi = transport.initialize()
+sideEffects.initialize(transportApi)
 
 ReactDOM.render(
   <App />,

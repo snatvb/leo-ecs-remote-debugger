@@ -1,5 +1,5 @@
 import { CmdEcsComponent } from '@commonTypes/ecs'
-import { observable } from 'mobx'
+import { action, observable } from 'mobx'
 import { Maybe } from 'monad-maniac'
 import { EcsComponent } from './EcsComponent'
 
@@ -30,6 +30,7 @@ export class EcsEntity {
     return component
   }
 
+  @action
   public setLoadedComponents(components: CmdEcsComponent[]) {
     for (const component of components) {
       this.getComponent(component.name).caseOf({

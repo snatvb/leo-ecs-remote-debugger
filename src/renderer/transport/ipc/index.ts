@@ -1,7 +1,8 @@
+import { CommandHandler, ConnectionHandler, IServerService } from '@renderer/types/serverService'
 import * as transport from '@transport'
 import { ipcRenderer } from 'electron'
 import { EventEmitter } from 'events'
-import { CommandHandler, ConnectionEventType, ConnectionHandler, IServerService } from '../'
+import { ConnectionEventType } from '../'
 
 const handleConnection = (emitter: EventEmitter) => {
   ipcRenderer.on('socket-connected', (_: any, id: number) => {

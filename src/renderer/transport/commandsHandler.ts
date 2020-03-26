@@ -1,5 +1,7 @@
 import { IRemoteCommand, RemoteCommandType } from '@commonTypes/commands'
+import { createRequestComponents } from '@helpers/createRequestComponents'
 import { validateEntity } from '@helpers/validateEntity'
+import { IServerService } from '@renderer/types/serverService'
 import { store } from '@store'
 import { EcsWorld } from '@store/Models/EcsWorld'
 import { EntityChangedCommand } from '@transport/EntityChangedCommand'
@@ -7,8 +9,6 @@ import { EntityCreatedCommand } from '@transport/EntityCreatedCommand'
 import { EntityDataRequestCommand } from '@transport/EntityDataRequestCommand'
 import { EntityDataResponseCommand } from '@transport/EntityDataResponseCommand'
 import { EntityDestroyedCommand } from '@transport/EntityDestroyedCommand'
-import { IServerService } from '.'
-import { EcsEntity } from '../store/Models/EcsEntity'
 
 type Handlers = {
   handleResponse(world: EcsWorld, command: EntityDataResponseCommand): void
@@ -17,17 +17,13 @@ type Handlers = {
   handleEntityDestroyed(world: EcsWorld, command: EntityDestroyedCommand): void
 }
 
-const createRequestCmd = (entity: EcsEntity): IRemoteCommand => (
-  new EntityDataRequestCommand(entity.id, entity.generation)
-)
-
 const createHandlerEntityCreated = (serverService: IServerService) => (
   (world: EcsWorld, command: EntityCreatedCommand) => {
     const entity = world.createEntity(command.getEntityId(), command.getEntityGeneration())
 
     serverService.sendCommand(
       world.id,
-      createRequestCmd(entity)
+      createRequestComponents(entity)
     )
   }
 )
@@ -53,7 +49,11 @@ const createHandlerEntityDestroyed = (serverService: IServerService) => (
 
 const createHandlerEntityChanged = (serverService: IServerService) => (
   (world: EcsWorld, command: EntityChangedCommand) => {
-    console.log('Changed entity', { world, command })
+    const cmd = new EntityDataRequestCommand(command.getEntityId(), command.getEntityGeneration())
+    serverService.sendCommand(
+      world.id,
+      cmd,
+    )
   }
 )
 
