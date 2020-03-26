@@ -1,10 +1,16 @@
+import { includes } from '@helpers/includes'
 import { useStore } from '@store/hook'
+import { EcsWorld } from '@store/Models/EcsWorld'
 import { Theme } from '@theme/default'
 import { keys } from 'mobx'
 import { observer } from 'mobx-react'
+import { Maybe } from 'monad-maniac'
 import * as React from 'react'
 import styled from 'styled-components'
 import { EntityStore } from './EntityStore'
+import { SearchEntities } from './SearchEntities'
+
+const MAX_RENDER_ENTITIES = 100
 
 const Container = styled.div`
   font-size: ${Theme.size.font.xl}px;
@@ -40,7 +46,7 @@ const RemoveLink = styled.div`
 `
 
 const Content = styled.div`
-  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
+  padding: ${Theme.offset.s}px ${Theme.offset.s}px;
 `
 
 const Empty = styled.div`
@@ -51,6 +57,31 @@ export type Props = Readonly<{
   id: number
 }>
 
+const findEntities = (world: EcsWorld, query: string) => (entityId: number): boolean => (
+  world
+  .getEntity(entityId)
+  .filter((entity) => includes((component) => (
+    new RegExp(query, 'i').test(component.name)
+  ), entity.components.values()))
+  .caseOf({
+    Just: () => true,
+    Nothing: () => false,
+  })
+)
+
+const getEntityKeys = (world: EcsWorld, querySearch: Maybe.Shape<string>) => (
+  querySearch
+    .filter((query) => query.length > 0)
+    .caseOf({
+      Just: (query) =>  (
+        keys(world.entities.items)
+          .filter(findEntities(world, query))
+          .slice(0, MAX_RENDER_ENTITIES)
+      ),
+      Nothing: () => keys(world.entities.items).slice(0, MAX_RENDER_ENTITIES),
+    })
+)
+
 export const World = React.memo(observer(({ id }: Props) => {
   const store = useStore()
 
@@ -58,11 +89,12 @@ export const World = React.memo(observer(({ id }: Props) => {
     store.removeWorld(id)
   }, [store, id])
 
+  const querySearch = store.ui.entitiesSearch.getQuery(id)
+
   return store.getWorld(id).caseOf({
     Nothing: () => <NotFound>World not found</NotFound>,
     Just: (world) => {
-      // Limitation display entity count
-      const entityKeys = keys(world.entities.items).slice(0, 100)
+      const entityKeys = getEntityKeys(world, querySearch)
 
       return (
         <Container>
@@ -70,6 +102,7 @@ export const World = React.memo(observer(({ id }: Props) => {
             <Title>World {id}</Title>
             {!world.isAlive && <RemoveLink onClick={handleRemove}>Remove</RemoveLink>}
           </Header>
+          <SearchEntities world={world} />
           <Content>
             {entityKeys.map((entityId: number) => (
               <EntityStore key={`${id}-${entityId}`} worldId={id} id={entityId} />

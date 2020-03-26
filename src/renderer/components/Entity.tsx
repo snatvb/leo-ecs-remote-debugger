@@ -27,7 +27,7 @@ const Header = styled.div`
 const Content = styled.div`
   border-bottom-left-radius: ${Theme.borderRadius.default}px;
   border-bottom-right-radius: ${Theme.borderRadius.default}px;
-  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
+  padding: ${Theme.offset.s}px ${Theme.offset.s}px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;

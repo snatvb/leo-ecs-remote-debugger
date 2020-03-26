@@ -2,19 +2,26 @@ import { computed, observable, reaction } from 'mobx'
 import { Maybe } from 'monad-maniac'
 import { Nullable } from 'monad-maniac/types'
 import { Store } from '../Store'
+import { EntitiesSearch } from './EntitiesSearch'
 import { RequestPeriod } from './RequestPeriod'
 
 export class UI {
   @observable
   public isOpenSecond: boolean = false
-  public requestPeriod: RequestPeriod
   @observable
+  public entitiesSearch: EntitiesSearch
+
+  public requestPeriod: RequestPeriod
+
   private openedWorlds: [Nullable<number>, Nullable<number>] = [undefined, undefined]
+
+  @observable
   private store: Store
 
   constructor(store: Store) {
     this.store = store
     this.requestPeriod = new RequestPeriod(store)
+    this.entitiesSearch = new EntitiesSearch()
 
     this.initialize()
   }

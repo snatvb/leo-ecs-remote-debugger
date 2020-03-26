@@ -23,6 +23,11 @@ export const Theme = {
     },
   },
   size: {
+    input: {
+      height: {
+        m: 30,
+      },
+    },
     font: {
       s: 12,
       m: 14,
