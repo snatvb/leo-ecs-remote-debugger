@@ -61,7 +61,8 @@ export const World = React.memo(observer(({ id }: Props) => {
   return store.getWorld(id).caseOf({
     Nothing: () => <NotFound>World not found</NotFound>,
     Just: (world) => {
-      const entityKeys = keys(world.entities.items)
+      // Limitation display entity count
+      const entityKeys = keys(world.entities.items).slice(0, 100)
 
       return (
         <Container>
