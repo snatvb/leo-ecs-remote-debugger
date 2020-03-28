@@ -5,6 +5,7 @@ import * as React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { KeyCode, Modifier, Shortcut, useShortcut } from '../helpers/hooks/useShortcut'
 import { Screens } from './Screens'
+import { TitleBar } from './TitleBar'
 
 const Container = styled.div`
   background: ${Theme.color.bg.dark};
@@ -13,23 +14,6 @@ const Container = styled.div`
   height: 100%;
   overflow: hidden;
   box-sizing: border-box;
-`
-
-const Title = styled.div`
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: ${Theme.header.height}px;
-  font-size: ${Theme.size.font.m}px;
-  background: ${Theme.color.action.first};
-  color: ${Theme.color.darkAction.first};
-  font-weight: bold;
-  padding: 0 ${Theme.offset.xl}px;
-  box-sizing: border-box;
-  -webkit-app-region: drag;
 `
 
 const Content = styled.div`
@@ -45,13 +29,12 @@ const Content = styled.div`
 
 const GlobalStyle = createGlobalStyle`
   html, body {
-    background: transparent;
     -webkit-user-select: none;
   }
 `
 
 const App = () => {
-  const shortcut: Shortcut = React.useMemo(() => ({
+  const quitShortcut: Shortcut = React.useMemo(() => ({
     keyCode: KeyCode.Q,
     modifier: Modifier.Ctrl,
     handler: () => {
@@ -59,15 +42,12 @@ const App = () => {
     }
   }), [])
 
-  useShortcut(shortcut)
+  useShortcut(quitShortcut)
 
   return (
     <Container>
-      <Title>
-        <div>Leo ECS</div>
-        <div>Remote Debugger</div>
-      </Title>
       <GlobalStyle />
+      <TitleBar />
       <Content>
         <ScreenProvider>
           <Screens />

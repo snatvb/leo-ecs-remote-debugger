@@ -58,5 +58,13 @@ export const Theme = {
   },
   transition: {
     default: 'all 300ms ease',
+    duration: {
+      default: 300,
+    }
+  },
+  modals: {
+    width: {
+      settings: 400,
+    }
   },
 }
