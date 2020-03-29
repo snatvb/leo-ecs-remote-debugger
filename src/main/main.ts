@@ -45,7 +45,6 @@ function createWindow(): void {
 }
 
 ipcMain.on('app-close', () => {
-  console.log('close')
   app.quit()
 })
 

@@ -15,6 +15,7 @@ const requestAllEntityComponents = (api: IApi) => {
     if (!world.isAlive) { return }
 
     world.entities.items.forEach((entity) => {
+      console.log(`request ${entity.id}`)
       api.sendCommand(
         world.id,
         createRequestComponents(entity)

@@ -1,7 +1,7 @@
-import { Screen, screenContext } from '@context/screen'
 import { faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useStore } from '@store/hook'
+import { Screen } from '@store/Models/UI/ScreenStore'
 import { Theme } from '@theme/default'
 import { observer } from 'mobx-react'
 import * as React from 'react'
@@ -53,7 +53,7 @@ const AddWorldScreen = styled(ScreenFooterButton)`
 
 export const WorldsScreen = observer(() => {
   const store = useStore()
-  const screen = React.useContext(screenContext)
+  const screen = store.ui.screen
 
   const backToMainScreen = React.useCallback(() => {
     screen.change(Screen.Main)
@@ -72,9 +72,7 @@ export const WorldsScreen = observer(() => {
   const noOneWorld = firstWorld.isNothing() && secondWorld.isNothing()
   const bothWorld = firstWorld.isJust() && secondWorld.isJust()
 
-  console.log('noOneWorld', noOneWorld)
   React.useEffect(() => {
-    console.log('noOneWorld effect', noOneWorld)
     if (noOneWorld) {
       screen.change(Screen.Main)
     }

@@ -1,5 +1,5 @@
-import { Screen, screenContext } from '@context/screen'
 import { useStore } from '@store/hook'
+import { Screen } from '@store/Models/UI/ScreenStore'
 import { Theme } from '@theme/default'
 import { observer } from 'mobx-react'
 import * as React from 'react'
@@ -43,7 +43,7 @@ export type Props = Readonly<{
 
 export const WorldCard = observer(({ id }: Props) => {
   const store = useStore()
-  const screen = React.useContext(screenContext)
+  const screen = store.ui.screen
 
   const handleRemove = React.useCallback((event: React.SyntheticEvent<HTMLDivElement>) => {
     event.preventDefault()

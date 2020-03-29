@@ -4,6 +4,7 @@ import { Nullable } from 'monad-maniac/types'
 import { Store } from '../Store'
 import { EntitiesSearch } from './EntitiesSearch'
 import { RequestPeriod } from './RequestPeriod'
+import { ScreenStore } from './ScreenStore'
 
 export class UI {
   @observable
@@ -12,6 +13,7 @@ export class UI {
   public entitiesSearch: EntitiesSearch
 
   public requestPeriod: RequestPeriod
+  public screen: ScreenStore
 
   private openedWorlds: [Nullable<number>, Nullable<number>] = [undefined, undefined]
 
@@ -22,6 +24,7 @@ export class UI {
     this.store = store
     this.requestPeriod = new RequestPeriod(store)
     this.entitiesSearch = new EntitiesSearch()
+    this.screen = new ScreenStore()
 
     this.initialize()
   }

@@ -56,7 +56,6 @@ export const create = (window: BrowserWindow) => {
   })
 
   ipcMain.on('socket-send-message', (_: any, clientId: number, data: string) => {
-    console.log('data', data)
     getClient(clients, clientId).caseOf({
       Right: (client) => {
         client.send(data)

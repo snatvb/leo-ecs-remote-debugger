@@ -2,7 +2,7 @@ import { observable } from 'mobx'
 import { Store } from '../Store'
 
 export const DEFAULT_VALUES = Object.freeze({
-  OPENED_WORLD: 300,
+  OPENED_WORLD: 1000,
   OPENED_ENTITY: 60,
 })
 

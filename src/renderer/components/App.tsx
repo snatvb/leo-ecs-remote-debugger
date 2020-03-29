@@ -1,4 +1,3 @@
-import { Provider as ScreenProvider } from '@context/screen'
 import { Theme } from '@theme/default'
 import { ipcRenderer } from 'electron'
 import * as React from 'react'
@@ -49,9 +48,7 @@ const App = () => {
       <GlobalStyle />
       <TitleBar />
       <Content>
-        <ScreenProvider>
           <Screens />
-        </ScreenProvider>
       </Content>
     </Container>
   )
