@@ -1,5 +1,6 @@
 import { createRequestComponents } from '@helpers/createRequestComponents'
 import { store } from '@store'
+import { Screen } from '@store/Models/UI/ScreenStore'
 import { reaction } from 'mobx'
 import { interval } from 'rxjs'
 import { IApi } from './types'
@@ -12,10 +13,10 @@ type CreateFork = (period: number) => IFork
 
 const requestAllEntityComponents = (api: IApi) => {
   store.worlds.forEach((world) => {
-    if (!world.isAlive) { return }
+    if (!world.isAlive || !store.ui.worldIsOpen(world.id)) { return }
 
+    console.log(`request components in world ${world.id}`)
     world.entities.items.forEach((entity) => {
-      console.log(`request ${entity.id}`)
       api.sendCommand(
         world.id,
         createRequestComponents(entity)
@@ -32,15 +33,26 @@ const startOpenedWorld = (api: IApi) => {
       })
 
     return {
-      stop() { intervalRequesting.unsubscribe() }
+      stop() { console.log('stopped'); intervalRequesting.unsubscribe() }
     }
   }
 
-  let fork = createFork(store.ui.requestPeriod.openedWorld)
-  reaction(() => store.ui.requestPeriod.openedWorld, () => {
-    fork.stop()
-    fork = createFork(store.ui.requestPeriod.openedWorld)
-  })
+  let fork: IFork | null = null
+  const recreateFork = () => {
+    if (fork) {
+      fork.stop()
+      fork = null
+    }
+
+    if (store.ui.anyWorldIsOpen && store.ui.screen.current === Screen.Worlds) {
+      fork = createFork(store.ui.requestPeriod.openedWorld)
+    }
+  }
+
+  recreateFork()
+  reaction(() => store.ui.requestPeriod.openedWorld, recreateFork)
+  reaction(() => store.ui.screen.current, recreateFork)
+  reaction(() => store.ui.anyWorldIsOpen, recreateFork)
 }
 
 export const initialize = (api: IApi) => {

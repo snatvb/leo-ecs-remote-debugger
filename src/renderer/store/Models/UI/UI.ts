@@ -15,8 +15,8 @@ export class UI {
   public requestPeriod: RequestPeriod
   public screen: ScreenStore
 
+  @observable
   private openedWorlds: [Nullable<number>, Nullable<number>] = [undefined, undefined]
-
   @observable
   private store: Store
 
@@ -41,6 +41,15 @@ export class UI {
   @computed
   public get secondWorld() {
     return Maybe.of(this.openedWorlds[1])
+  }
+
+  @computed
+  public get anyWorldIsOpen() {
+    return typeof this.openedWorlds[0] === 'number' || typeof this.openedWorlds[1] === 'number'
+  }
+
+  public worldIsOpen(id: number) {
+    return this.openedWorlds[0] === id || this.openedWorlds[1] === id
   }
 
   public setSecondWorld(value: number) {

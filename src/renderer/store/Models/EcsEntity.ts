@@ -6,11 +6,11 @@ import { EcsComponent } from './EcsComponent'
 export type EcsComponents = Map<string, EcsComponent>
 
 export class EcsEntity {
+  public id: number
   @observable
   public loaded: boolean = false
   @observable
   public components: EcsComponents = new Map()
-  public id: number
   @observable
   public generation: number
 
@@ -33,6 +33,8 @@ export class EcsEntity {
   @action
   public setLoadedComponents(components: CmdEcsComponent[]) {
     for (const component of components) {
+      // TODO: Need for development, after debug must be deleted
+      console.log('component', component)
       this.getComponent(component.name).caseOf({
         Just: (existComponent) => { existComponent.setData(component.data) },
         Nothing: () => { this.setComponent(component.name, component.data) },

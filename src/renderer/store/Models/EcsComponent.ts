@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 export class EcsComponent {
   public name: string
@@ -10,6 +10,7 @@ export class EcsComponent {
     this.data = data
   }
 
+  @action
   public setData(data: string) {
     this.data = data
   }

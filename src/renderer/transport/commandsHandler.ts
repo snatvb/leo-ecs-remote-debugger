@@ -19,6 +19,7 @@ type Handlers = {
 
 const createHandlerEntityCreated = (serverService: IServerService) => (
   (world: EcsWorld, command: EntityCreatedCommand) => {
+    console.log('created', command.getEntityId())
     const entity = world.createEntity(command.getEntityId(), command.getEntityGeneration())
 
     serverService.sendCommand(
@@ -66,6 +67,7 @@ const createHandlerCommand = (handlers: Handlers) => (id: number, command: IRemo
 
       case RemoteCommandType.EntityDataResponse:
         handlers.handleResponse(world, command as EntityDataResponseCommand)
+        break
 
       case RemoteCommandType.EntityChanged:
         handlers.handleEntityChanged(world, command as EntityChangedCommand)
