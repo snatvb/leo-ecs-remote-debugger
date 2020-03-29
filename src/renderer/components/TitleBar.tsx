@@ -1,7 +1,7 @@
 import { Theme } from '@theme/default'
 import * as React from 'react'
 import styled from 'styled-components'
-import { SettingsShowButton } from './SettingsShowButton'
+import { ShowButton as SettingsShowButton } from './Settings/ShowButton'
 
 const Container = styled.div`
   position: relative;

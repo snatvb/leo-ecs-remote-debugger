@@ -5,7 +5,8 @@ import * as ReactDOM from 'react-dom'
 import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
-const ANIMATION_DURATION = 300
+const ANIMATION_DURATION = Theme.transition.duration.default
+const HALF_ANIMATION_DURATION = Theme.transition.duration.default * 0.5
 
 const Container = styled.div`
   width: 100%;
@@ -15,7 +16,7 @@ const Container = styled.div`
   right: 0;
   top: ${Theme.header.height}px;
   bottom: ${Theme.footer.height}px;
-  transition: opacity ${ANIMATION_DURATION * 0.5}ms ease;
+  transition: opacity ${HALF_ANIMATION_DURATION}ms ease;
   opacity: 0;
   box-sizing: border-box;
 
@@ -25,7 +26,7 @@ const Container = styled.div`
   }
 
   &.showing-enter-done,
-  &.showing-active {
+  &.showing-enter-active {
     opacity: 1;
   }
 `
@@ -42,7 +43,7 @@ const Body = styled.div`
   }
 
   .showing-enter-done &,
-  .showing-active & {
+  .showing-enter-active & {
     transform: translateY(0%);
   }
 `

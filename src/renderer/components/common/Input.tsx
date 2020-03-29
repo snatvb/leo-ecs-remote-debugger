@@ -24,7 +24,7 @@ const InputElement = styled.input`
   border-radius: ${Theme.borderRadius.default}px;
   box-sizing: border-box;
 
-  ${({ hasIcon }: InputElementProps) => css`
+  ${({ hasIcon }: InputElementProps) => hasIcon && css`
     padding-left: ${Theme.offset.m * 2 + 18}px;
   `}
 `
@@ -46,7 +46,7 @@ export type Props = React.ComponentProps<typeof InputElement> & Readonly<{
 
 export const Input = React.memo(({ icon, ...rest }: Props) => (
   <InputContainer>
-    <InputElement {...rest} />
+    <InputElement {...rest} hasIcon={Boolean(icon)} />
     {icon && (
       <Icon>
         <FontAwesomeIcon icon={icon} />
