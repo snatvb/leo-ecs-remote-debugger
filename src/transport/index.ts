@@ -4,6 +4,7 @@ import { EntityChangedCommand } from './EntityChangedCommand'
 import { EntityCreatedCommand } from './EntityCreatedCommand'
 import { EntityDataResponseCommand } from './EntityDataResponseCommand'
 import { EntityDestroyedCommand } from './EntityDestroyedCommand'
+import { HeartBeatCommand } from './HeadBeatCommand'
 
 const parse = (json: string): Either.Shape<Error, RemoteCommandRaw> => (
   Either
@@ -20,6 +21,9 @@ const parse = (json: string): Either.Shape<Error, RemoteCommandRaw> => (
 export const decode = (json: string): Either.Shape<Error, IRemoteCommand> => (
   parse(json).chain((cmdRaw) => {
     switch (cmdRaw.t) {
+      case RemoteCommandType.HeartBeat:
+        return Either.right(new HeartBeatCommand())
+
       case RemoteCommandType.EntityCreated:
         return Either.right(new EntityCreatedCommand(cmdRaw.i, cmdRaw.g))
 

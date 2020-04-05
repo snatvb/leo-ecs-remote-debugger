@@ -1,4 +1,5 @@
 export enum RemoteCommandType {
+  HeartBeat,
   EntityCreated,
   EntityDestroyed,
   EntityChanged,

@@ -1,5 +1,6 @@
 import { IRemoteCommand, RemoteCommandType } from '@commonTypes/commands'
 import { createRequestComponents } from '@helpers/createRequestComponents'
+import { createTimeoutHandler, ITimeout } from '@helpers/createTimeoutHandler'
 import { validateEntity } from '@helpers/validateEntity'
 import { IServerService } from '@renderer/types/serverService'
 import { store } from '@store'
@@ -9,12 +10,54 @@ import { EntityCreatedCommand } from '@transport/EntityCreatedCommand'
 import { EntityDataRequestCommand } from '@transport/EntityDataRequestCommand'
 import { EntityDataResponseCommand } from '@transport/EntityDataResponseCommand'
 import { EntityDestroyedCommand } from '@transport/EntityDestroyedCommand'
+import { HeartBeatCommand } from '@transport/HeadBeatCommand'
+import { Maybe } from 'monad-maniac'
+import { interval } from 'rxjs'
+import { TransportAPI } from '.'
 
 type Handlers = {
+  handleHeartBeat(world: EcsWorld, command: HeartBeatCommand): void
   handleResponse(world: EcsWorld, command: EntityDataResponseCommand): void
   handleEntityCreated(world: EcsWorld, command: EntityCreatedCommand): void
   handleEntityChanged(world: EcsWorld, command: EntityChangedCommand): void
   handleEntityDestroyed(world: EcsWorld, command: EntityDestroyedCommand): void
+}
+
+const TIMEOUT_HEART_BEAT = 5000
+
+const createPinger = (api: TransportAPI, intervalTime: number) => {
+  const serverService = api.getServerService()
+  const intervalPinging = interval(intervalTime)
+      .subscribe(() => {
+        store.worlds.forEach((world) => {
+          if (!world.isAlive) { return }
+          serverService.sendCommand(
+            world.id,
+            new HeartBeatCommand()
+          )
+        })
+      })
+
+  return () => { intervalPinging.unsubscribe() }
+}
+
+const createHandlerHeartBeat = (api: TransportAPI) => {
+  const timeouts: Map<number, ITimeout> = new Map()
+  createPinger(api, TIMEOUT_HEART_BEAT)
+
+  const updateTimeout = (world: EcsWorld) => {
+    Maybe.of(timeouts.get(world.id)).map((timeout) => {
+      timeout.stop()
+    })
+
+    timeouts.set(world.id, createTimeoutHandler(() => {
+      world.pause()
+    }, TIMEOUT_HEART_BEAT))
+  }
+
+  return (world: EcsWorld, command: HeartBeatCommand) => {
+    updateTimeout(world)
+  }
 }
 
 const createHandlerEntityCreated = (serverService: IServerService) => (
@@ -61,6 +104,10 @@ const createHandlerEntityChanged = (serverService: IServerService) => (
 const createHandlerCommand = (handlers: Handlers) => (id: number, command: IRemoteCommand) => {
   store.getWorld(id).map((world) => {
     switch (command.getCommandType()) {
+      case RemoteCommandType.HeartBeat:
+        handlers.handleHeartBeat(world, command as HeartBeatCommand)
+        break
+
       case RemoteCommandType.EntityCreated:
         handlers.handleEntityCreated(world, command as EntityCreatedCommand)
         break
@@ -83,8 +130,10 @@ const createHandlerCommand = (handlers: Handlers) => (id: number, command: IRemo
   })
 }
 
-export const initialize = (serverService: IServerService) => {
+export const initialize = (api: TransportAPI) => {
+  const serverService = api.getServerService()
   const handlers: Handlers = {
+    handleHeartBeat: createHandlerHeartBeat(api),
     handleEntityCreated: createHandlerEntityCreated(serverService),
     handleEntityDestroyed: createHandlerEntityDestroyed(serverService),
     handleEntityChanged: createHandlerEntityChanged(serverService),
