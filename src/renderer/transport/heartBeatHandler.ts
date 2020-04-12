@@ -11,7 +11,7 @@ export type HeartBeatHandler = {
   handleHeartBeat: (world: EcsWorld) => void
 }
 
-const TIMEOUT_HEART_BEAT = 5000
+const TIMEOUT_HEART_BEAT = 2500
 
 const createPinger = (api: TransportAPI, intervalTime: number) => {
   const serverService = api.getServerService()

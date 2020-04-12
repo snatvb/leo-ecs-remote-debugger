@@ -62,7 +62,7 @@ export const WorldCard = observer(({ id }: Props) => {
       <Container onClick={handleOpen}>
         <Header>
           <Title>World {id}</Title>
-          {!world.isAlive && (
+          {world.isDied && (
             <RemoveLink onClick={handleRemove}>Remove</RemoveLink>
           )}
         </Header>
