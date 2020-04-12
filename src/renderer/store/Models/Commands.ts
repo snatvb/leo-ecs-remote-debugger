@@ -1,10 +1,10 @@
-import { RemoteCommand } from '@/commonTypes/api'
+import { IRemoteCommand } from '@/commonTypes/commands'
 import { observable } from 'mobx'
 import { Store } from './Store'
 
 export class Commands {
   @observable
-  public list: RemoteCommand[] = []
+  public list: IRemoteCommand[] = []
   private store: Store
 
   constructor(store: Store) {

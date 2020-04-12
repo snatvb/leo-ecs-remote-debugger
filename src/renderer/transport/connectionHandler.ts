@@ -6,6 +6,7 @@ const handleConnected = (id: number) => {
 }
 
 const handleDisconnected = (id: number) => {
+  console.log(`World with id ${id} has been disconnected`)
   store.getWorld(id).map((world) => world.isAlive = false)
 }
 

@@ -3,9 +3,9 @@ import { EcsEntities } from './EcsEntities'
 import { Store } from './Store'
 
 export enum WorldStatus {
-  Pause,
-  Alive,
-  Died,
+  Pause = 'pause',
+  Alive = 'alive',
+  Died = 'died',
 }
 
 export class EcsWorld {
@@ -29,6 +29,11 @@ export class EcsWorld {
   }
 
   @computed
+  get isDied() {
+    return this.status === WorldStatus.Died
+  }
+
+  @computed
   get isAlive() {
     return this.status === WorldStatus.Alive
   }
@@ -38,7 +43,17 @@ export class EcsWorld {
   }
 
   public pause() {
-    this.status = WorldStatus.Pause
+    if (!this.isDied) {
+      this.status = WorldStatus.Pause
+    }
+  }
+
+  public resume() {
+    if (this.isPaused) {
+      this.status = WorldStatus.Alive
+    } else {
+      console.warn(`Can't resume world ${this.id} because it have status: ${this.status}`)
+    }
   }
 
   public createEntity(entityId: number, generation: number) {

@@ -1,4 +1,5 @@
 import { IRemoteCommand } from '@commonTypes/commands'
+import { createLocalStore } from '@helpers/createLocalStore'
 import { IServerService } from '@renderer/types/serverService'
 import { ITransportAPI } from '@renderer/types/TransportAPI'
 import { store } from '@store'
@@ -24,7 +25,7 @@ type State = Readonly<{
 export type TransportAPI = ITransportAPI<State>
 
 const createApi = (): TransportAPI => {
-  const localStore = createStore<State>({
+  const localStore = createLocalStore<State>({
     status: TransportStatus.Running
   })
   const serverService: IServerService = ipc.initialize()

@@ -15,7 +15,7 @@ const requestAllEntityComponents = (api: IApi) => {
   store.worlds.forEach((world) => {
     if (!world.isAlive || !store.ui.worldIsOpen(world.id)) { return }
 
-    console.log(`request components in world ${world.id}`)
+    console.log(`Request components in world ${world.id}`)
     world.entities.items.forEach((entity) => {
       api.sendCommand(
         world.id,
@@ -27,13 +27,17 @@ const requestAllEntityComponents = (api: IApi) => {
 
 const startOpenedWorld = (api: IApi) => {
   const createFork: CreateFork = (period) => {
+    console.log('Fork created periodic request')
     const intervalRequesting = interval(period)
       .subscribe(() => {
         requestAllEntityComponents(api)
       })
 
     return {
-      stop() { console.log('stopped'); intervalRequesting.unsubscribe() }
+      stop() {
+        console.log('Stopped periodic request')
+        intervalRequesting.unsubscribe()
+      }
     }
   }
 

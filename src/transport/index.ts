@@ -6,6 +6,11 @@ import { EntityDataResponseCommand } from './EntityDataResponseCommand'
 import { EntityDestroyedCommand } from './EntityDestroyedCommand'
 import { HeartBeatCommand } from './HeadBeatCommand'
 
+const allowSerializeTypes = [
+  RemoteCommandType.EntityDataRequest,
+  RemoteCommandType.HeartBeat,
+]
+
 const parse = (json: string): Either.Shape<Error, RemoteCommandRaw> => (
   Either
     .attempt(() => JSON.parse(json) as RemoteCommandRaw, [])
@@ -48,7 +53,7 @@ export const decode = (json: string): Either.Shape<Error, IRemoteCommand> => (
 export const serialize = (cmd: IRemoteCommand): Either.Shape<Error, string> => {
   const type = cmd.getCommandType()
 
-  if (type !== RemoteCommandType.EntityDataRequest) {
+  if (!allowSerializeTypes.includes(type)) {
     return Either.left(new Error(`Not supported command: ${RemoteCommandType[type]}`))
   }
 

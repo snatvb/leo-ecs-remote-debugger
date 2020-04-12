@@ -3,7 +3,7 @@ type Store<T> = Readonly<{
   getState(): Readonly<T>;
 }>
 
-const createStore = <T>(initialState: T): Store<T> => {
+export const createLocalStore = <T>(initialState: T): Store<T> => {
   let state = initialState
 
   return {

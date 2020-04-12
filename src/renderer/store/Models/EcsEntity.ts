@@ -33,8 +33,6 @@ export class EcsEntity {
   @action
   public setLoadedComponents(components: CmdEcsComponent[]) {
     for (const component of components) {
-      // TODO: Need for development, after debug must be deleted
-      console.log('component', component)
       this.getComponent(component.name).caseOf({
         Just: (existComponent) => { existComponent.setData(component.data) },
         Nothing: () => { this.setComponent(component.name, component.data) },
