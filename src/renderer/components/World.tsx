@@ -10,7 +10,7 @@ import styled from 'styled-components'
 import { EntityStore } from './EntityStore'
 import { SearchEntities } from './SearchEntities'
 
-const MAX_RENDER_ENTITIES = 100
+const MAX_RENDER_ENTITIES = 50
 
 const Container = styled.div`
   font-size: ${Theme.size.font.xl}px;
@@ -54,7 +54,7 @@ const Empty = styled.div`
 `
 
 export type Props = Readonly<{
-  id: number
+  world: EcsWorld
 }>
 
 const findEntities = (world: EcsWorld, query: string) => (entityId: number): boolean => (
@@ -82,37 +82,28 @@ const getEntityKeys = (world: EcsWorld, querySearch: Maybe.Shape<string>) => (
     })
 )
 
-export const World = React.memo(observer(({ id }: Props) => {
+export const World = React.memo(observer(({ world }: Props) => {
   const store = useStore()
 
-  const handleRemove = React.useCallback(() => {
-    store.removeWorld(id)
-  }, [store, id])
+  const querySearch = store.ui.entitiesSearch.getQuery(world.id)
 
-  const querySearch = store.ui.entitiesSearch.getQuery(id)
+  const entityKeys = getEntityKeys(world, querySearch)
 
-  return store.getWorld(id).caseOf({
-    Nothing: () => <NotFound>World not found</NotFound>,
-    Just: (world) => {
-      const entityKeys = getEntityKeys(world, querySearch)
-
-      return (
-        <Container>
-          <Header>
-            <Title>World {id}</Title>
-            {!world.isAlive && <RemoveLink onClick={handleRemove}>Remove</RemoveLink>}
-          </Header>
-          <SearchEntities world={world} />
-          <Content>
-            {entityKeys.map((entityId: number) => (
-              <EntityStore key={`${id}-${entityId}`} worldId={id} id={entityId} />
-            ))}
-            {entityKeys.length === 0 && (
-              <Empty>World don't have any entities</Empty>
-            )}
-          </Content>
-        </Container>
-      )
-    },
-  })
+  return (
+    <Container>
+      <Header>
+        <Title>World {world.id}</Title>
+        {/* {!world.isAlive && <RemoveLink onClick={handleRemove}>Remove</RemoveLink>} */}
+      </Header>
+      <SearchEntities world={world} />
+      <Content>
+        {entityKeys.map((entityId: number) => (
+          <EntityStore key={`${world.id}-${entityId}`} worldId={world.id} id={entityId} />
+        ))}
+        {entityKeys.length === 0 && (
+          <Empty>World don't have any entities</Empty>
+        )}
+      </Content>
+    </Container>
+  )
 }))

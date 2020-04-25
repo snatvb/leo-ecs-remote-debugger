@@ -3,7 +3,7 @@ import { Theme } from '@theme/default'
 import * as React from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
 import styled from 'styled-components'
-import { World } from './World'
+import { WorldStore } from './WorldStore'
 
 const Container = styled.div`
   width: 100%;
@@ -27,7 +27,7 @@ export const WorldWithScrollBar = React.memo(({ id }: Props) => {
     <Container ref={containerRef}>
       <Scrollbars autoHeight autoHeightMax={height}>
         <WorldWrapper>
-          <World id={id} />
+          <WorldStore id={id} />
         </WorldWrapper>
       </Scrollbars>
     </Container>

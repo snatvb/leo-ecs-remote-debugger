@@ -1,4 +1,5 @@
 import { createRequestComponents } from '@helpers/createRequestComponents'
+import { getWhatDisplay } from '@helpers/entity/getWhatDisplay'
 import { createFork } from '@helpers/rx/fork'
 import { store } from '@store'
 import { Screen } from '@store/Models/UI/ScreenStore'
@@ -10,7 +11,7 @@ const requestAllEntityComponents = (api: IApi) => {
     if (!world.isAlive || !store.ui.worldIsOpen(world.id)) { return }
 
     process.env.NODE_ENV === 'development' && console.log(`Request components in world ${world.id}`)
-    world.entities.items.forEach((entity) => {
+    getWhatDisplay(world).forEach((entity) => {
       api.sendCommand(
         world.id,
         createRequestComponents(entity)

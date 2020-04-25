@@ -60,8 +60,8 @@ export const Entity = React.memo(observer(({ value, onClick }: Props) => {
   const contentState = getContentState(value)
 
   return (
-    <Container>
-      <Header onClick={onClick}>Entity {value.id}</Header>
+    <Container onClick={onClick}>
+      <Header>Entity {value.id}</Header>
       <Content>
         {contentState === ContentState.Ok && map((component, index) => (
           <EntityComponent

@@ -1,4 +1,4 @@
-import { faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useStore } from '@store/hook'
 import { Screen } from '@store/Models/UI/ScreenStore'
@@ -111,11 +111,11 @@ export const WorldsScreen = observer(() => {
         <BackToMainScreen  onClick={backToMainScreen}>
           <FontAwesomeIcon icon={faChevronLeft} />
         </BackToMainScreen>
-        {!bothWorld && (
+        {/* {!bothWorld && (
           <AddWorldScreen  onClick={openSecondWorld}>
             <FontAwesomeIcon icon={faPlus} />
           </AddWorldScreen>
-        )}
+        )} */}
       </ScreenFooter>
     </Container>
   )

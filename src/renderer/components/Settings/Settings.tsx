@@ -42,9 +42,11 @@ const GridRow = styled.div`
 export type Props = Readonly<{
 }>
 
-const MIN_PERIOD = 1
+const MIN_WORLD_PERIOD = 700
+const MIN_ENTITY_PERIOD = 30
 
-const cleanPeriod = (period: number) => period < MIN_PERIOD ? MIN_PERIOD : period
+const cleanWorldPeriod = (period: number) => period < MIN_WORLD_PERIOD ? MIN_WORLD_PERIOD : period
+const cleanEntityPeriod = (period: number) => period < MIN_ENTITY_PERIOD ? MIN_ENTITY_PERIOD : period
 
 export const Settings = React.memo(observer(({
 }: Props) => {
@@ -52,13 +54,13 @@ export const Settings = React.memo(observer(({
 
   const handleChangeOpenedWorld = React.useCallback((value: string) => {
     parseInteger(value).map((period: number) => {
-      store.ui.requestPeriod.openedWorld = cleanPeriod(period)
+      store.ui.requestPeriod.openedWorld = cleanWorldPeriod(period)
     })
   }, [])
 
   const handleChangeOpenedEntity = React.useCallback((value: string) => {
     parseInteger(value).map((period: number) => {
-      store.ui.requestPeriod.openedEntity = cleanPeriod(period)
+      store.ui.requestPeriod.openedEntity = cleanEntityPeriod(period)
     })
   }, [])
 
