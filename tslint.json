@@ -26,6 +26,7 @@
     "import-name": false,
     "no-reserved-keywords": false,
     "no-invalid-this": false,
+    "no-void-expression": false,
     "prefer-method-signature": false,
     "no-console": false,
     "variable-name": false,

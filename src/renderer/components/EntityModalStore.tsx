@@ -6,7 +6,7 @@ import { EntityModal } from './EntityModal'
 
 export const EntityModalStore = React.memo(observer(() => {
   const store = useStore()
-  const entityWatching = store.ui.modals.entityModal.getEntityId().getOrElse(undefined)
+  const entityWatching = store.ui.modals.entityModal.entityValue.getOrElse(undefined)
   const isShowing = entityWatching !== undefined
 
   const handleOnClose = React.useCallback(() => {

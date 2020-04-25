@@ -24,14 +24,18 @@ export const initialize = (api: IApi) => {
     requestAllEntityComponents(api)
   }, { period: store.ui.requestPeriod.openedWorld })
   const recreateFork = () => {
-    if (store.ui.anyWorldIsOpen && store.ui.screen.current === Screen.Worlds) {
-      fork.recreate()
+    const worldIsOpen = store.ui.anyWorldIsOpen && store.ui.screen.current === Screen.Worlds
+    const entityModalIsClosed = store.ui.modals.entityModal.entityValue.isNothing()
+    if (worldIsOpen && entityModalIsClosed) {
+      fork.recreate({ period: store.ui.requestPeriod.openedWorld })
     } else {
       fork.stop()
     }
   }
 
   recreateFork()
+
+  reaction(() => store.ui.modals.entityModal.entityValue, recreateFork)
   reaction(() => store.ui.requestPeriod.openedWorld, recreateFork)
   reaction(() => store.ui.screen.current, recreateFork)
   reaction(() => store.ui.anyWorldIsOpen, recreateFork)
