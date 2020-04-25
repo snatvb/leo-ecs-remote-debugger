@@ -1,20 +1,27 @@
-import { observable } from 'mobx'
+import { action, observable } from 'mobx'
 import { Maybe } from 'monad-maniac'
 import { Nullable } from 'monad-maniac/types'
 
+export type EntityModalValue = Readonly<{
+  entityId: number
+  worldId: number
+}>
+
 export class EntityModal {
   @observable
-  private entityId: Nullable<number>
+  private entity: Nullable<EntityModalValue>
 
-  public open(entityId: number) {
-    this.entityId = entityId
+  @action
+  public open(entityId: number, worldId: number) {
+    this.entity = { entityId, worldId }
   }
 
-  public close(entityId: number) {
-    this.entityId = entityId
+  @action
+  public close() {
+    this.entity = undefined
   }
 
-  public getEntityId(): Maybe.Shape<number> {
-    return Maybe.of(this.entityId)
+  public getEntityId(): Maybe.Shape<EntityModalValue> {
+    return Maybe.of(this.entity)
   }
 }

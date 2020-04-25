@@ -65,6 +65,7 @@ export const Theme = {
   modals: {
     width: {
       settings: 450,
+      entity: 640,
     }
   },
 }

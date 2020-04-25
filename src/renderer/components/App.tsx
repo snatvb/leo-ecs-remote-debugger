@@ -3,6 +3,7 @@ import { ipcRenderer } from 'electron'
 import * as React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { KeyCode, Modifier, Shortcut, useShortcut } from '../helpers/hooks/useShortcut'
+import { EntityModalStore } from './EntityModalStore'
 import { Screens } from './Screens'
 import { TitleBar } from './TitleBar'
 
@@ -50,6 +51,7 @@ const App = () => {
       <Content>
           <Screens />
       </Content>
+      <EntityModalStore />
     </Container>
   )
 }
