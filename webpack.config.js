@@ -1,6 +1,7 @@
 const lodash = require('lodash');
 const CopyPkgJsonPlugin = require('copy-pkg-json-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { DefinePlugin } = require('webpack');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const path = require('path');
 
@@ -57,11 +58,18 @@ const commonConfig = {
 };
 // #endregion
 
+const commonPlugins = [
+  new DefinePlugin({
+    NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+  }),
+];
+
 const mainConfig = lodash.cloneDeep(commonConfig);
 mainConfig.entry = './src/main/main.ts';
 mainConfig.target = 'electron-main';
 mainConfig.output.filename = 'main.bundle.js';
 mainConfig.plugins = [
+  ...commonPlugins,
   new CopyPkgJsonPlugin({
     remove: ['scripts', 'devDependencies', 'build'],
     replace: {
@@ -77,6 +85,7 @@ rendererConfig.entry = './src/renderer/renderer.tsx';
 rendererConfig.target = 'electron-renderer';
 rendererConfig.output.filename = 'renderer.bundle.js';
 rendererConfig.plugins = [
+  ...commonPlugins,
   new HtmlWebpackPlugin({
     template: path.resolve(__dirname, './public/index.html'),
   }),

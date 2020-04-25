@@ -4,6 +4,7 @@ import * as React from 'react'
 export enum KeyCode {
   Q = 81,
   Enter = 13,
+  Ecs = 27,
 }
 
 export enum Modifier {

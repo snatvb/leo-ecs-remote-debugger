@@ -2,5 +2,7 @@ import { Store } from './Models/Store'
 
 export const store = new Store()
 
-// @ts-ignore
-window.store = store
+if (process.env.NODE_ENV === 'development') {
+  // @ts-ignore
+  window.store = store
+}

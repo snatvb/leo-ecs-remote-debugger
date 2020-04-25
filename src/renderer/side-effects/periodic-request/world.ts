@@ -9,7 +9,7 @@ const requestAllEntityComponents = (api: IApi) => {
   store.worlds.forEach((world) => {
     if (!world.isAlive || !store.ui.worldIsOpen(world.id)) { return }
 
-    console.log(`Request components in world ${world.id}`)
+    process.env.NODE_ENV === 'development' && console.log(`Request components in world ${world.id}`)
     world.entities.items.forEach((entity) => {
       api.sendCommand(
         world.id,

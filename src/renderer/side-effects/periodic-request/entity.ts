@@ -40,7 +40,7 @@ const requestEntityComponents = (api: IApi) => {
     .chain(getEntity)
     .caseOf({
       Right: ({ entity, world }) => {
-        console.log(`Request components in entity ${world.id}`)
+        process.env.NODE_ENV === 'development' && console.log(`Request components in entity ${world.id}`)
         api.sendCommand(
           world.id,
           createRequestComponents(entity)

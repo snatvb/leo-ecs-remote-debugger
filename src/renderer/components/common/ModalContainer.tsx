@@ -1,4 +1,5 @@
 import { getElementById } from '@helpers/dom/getElementById'
+import { KeyCode, Shortcut, useShortcut } from '@helpers/hooks/useShortcut'
 import { Theme } from '@theme/default'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
@@ -51,7 +52,7 @@ const Body = styled.div`
 export type Props = React.PropsWithChildren<Readonly<{
   showing?: boolean
   onClosed?(): void
-  onClose?(event: React.SyntheticEvent<HTMLDivElement>): void
+  onClose?(event: React.SyntheticEvent<HTMLDivElement> | KeyboardEvent): void
 }>>
 
 export const ModalContainer = React.memo(({
@@ -68,6 +69,15 @@ export const ModalContainer = React.memo(({
       onClose(event)
     }
   }, [onClose])
+
+  const closeShortcut: Shortcut = React.useMemo(() => ({
+    keyCode: KeyCode.Ecs,
+    handler: (event) => {
+      onClose && onClose(event)
+    }
+  }), [])
+
+  useShortcut(closeShortcut)
 
   return portalModals.caseOf({
     Just: (portalContainer) => ReactDOM.createPortal(
