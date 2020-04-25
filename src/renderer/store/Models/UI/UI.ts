@@ -3,6 +3,7 @@ import { Maybe } from 'monad-maniac'
 import { Nullable } from 'monad-maniac/types'
 import { Store } from '../Store'
 import { EntitiesSearch } from './EntitiesSearch'
+import { Modals } from './Modals/Modals'
 import { RequestPeriod } from './RequestPeriod'
 import { ScreenStore } from './ScreenStore'
 
@@ -11,6 +12,8 @@ export class UI {
   public isOpenSecond: boolean = false
   @observable
   public entitiesSearch: EntitiesSearch
+  @observable
+  public modals: Modals
 
   public requestPeriod: RequestPeriod
   public screen: ScreenStore
@@ -24,6 +27,7 @@ export class UI {
     this.store = store
     this.requestPeriod = new RequestPeriod(store)
     this.entitiesSearch = new EntitiesSearch()
+    this.modals = new Modals()
     this.screen = new ScreenStore()
 
     this.initialize()
