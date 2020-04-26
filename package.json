@@ -15,17 +15,18 @@
   },
   "build": {
     "appId": "com.snatvb.leo-ecs-remote-debugger",
-    "productName": "Leo Ecs remote debugger",
+    "productName": "LeoEcsRemoteDebugger",
     "directories": {
       "app": "./dist/",
-      "output": "./out/"
+      "output": "./out/",
+      "buildResources": "buildResources"
     },
     "mac": {
       "target": "pkg"
     },
     "win": {
-      "target": "nsis",
-      "asar": false
+      "target": "zip",
+      "asar": true
     },
     "buildVersion": "2020.3.22-preview"
   },
