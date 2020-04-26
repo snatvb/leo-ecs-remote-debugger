@@ -36,6 +36,7 @@ const Content = styled.div`
 export type Props = Readonly<{
   value: EcsEntity
   onClick?: (event: React.SyntheticEvent<HTMLDivElement>) => void
+  componentsWithData?: boolean
 }>
 
 enum ContentState {
@@ -56,7 +57,7 @@ const getContentState = (entity: EcsEntity): ContentState => {
   return ContentState.Invalid
 }
 
-export const Entity = React.memo(observer(({ value, onClick }: Props) => {
+export const Entity = React.memo(observer(({ value, onClick, componentsWithData = false }: Props) => {
   const contentState = getContentState(value)
 
   return (
@@ -65,6 +66,7 @@ export const Entity = React.memo(observer(({ value, onClick }: Props) => {
       <Content>
         {contentState === ContentState.Ok && map((component, index) => (
           <EntityComponent
+            withData={componentsWithData}
             key={`[${value.id}]-${component.name}-${index}`}
             value={component}
           />

@@ -38,7 +38,7 @@ export const EntityModal = React.memo(observer(({ entityId, worldId }: Props) =>
     <Container>
       <Title>Watching Entity</Title>
       <Body>
-        <EntityStore worldId={worldId} id={entityId} />
+        <EntityStore worldId={worldId} id={entityId} componentsWithData />
       </Body>
     </Container>
   )

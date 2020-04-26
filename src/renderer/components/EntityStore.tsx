@@ -16,9 +16,10 @@ const NotFound = styled.div`
 export type Props = Readonly<{
   id: number
   worldId: number
+  componentsWithData: boolean
 }>
 
-export const EntityStore = React.memo(observer(({ worldId, id }: Props) => {
+export const EntityStore = React.memo(observer(({ worldId, id, componentsWithData = false }: Props) => {
   const store = useStore()
 
   const handleClickEntity = React.useCallback(() => {
@@ -30,6 +31,6 @@ export const EntityStore = React.memo(observer(({ worldId, id }: Props) => {
     .chain((world) => world.getEntity(id))
     .caseOf({
       Nothing: () => <NotFound>Entity({id}) was not found</NotFound>,
-      Just: (entity) => <Entity value={entity} onClick={handleClickEntity} />,
+      Just: (entity) => <Entity value={entity} onClick={handleClickEntity} componentsWithData={componentsWithData} />,
     })
 }))

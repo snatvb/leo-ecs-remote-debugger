@@ -32,15 +32,18 @@ const Content = styled.div`
 
 export type Props = Readonly<{
   value: EcsComponent
+  withData?: boolean
 }>
 
-export const EntityComponent = React.memo(observer(({ value }: Props) => {
+export const EntityComponent = React.memo(observer(({ value, withData = false }: Props) => {
   return (
     <Container>
       <Header>{value.name}</Header>
-      <Content>
-        {value.data}
-      </Content>
+      {withData && (
+        <Content>
+          {value.data}
+        </Content>
+      )}
     </Container>
   )
 }))
