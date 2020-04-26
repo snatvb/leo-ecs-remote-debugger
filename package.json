@@ -22,7 +22,7 @@
       "buildResources": "buildResources"
     },
     "mac": {
-      "target": "pkg"
+      "target": "zip"
     },
     "win": {
       "target": "zip",
