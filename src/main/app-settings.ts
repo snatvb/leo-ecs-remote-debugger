@@ -4,18 +4,24 @@ import { readJsonFile } from './fs/readJsonFile'
 import { writeFile } from './fs/writeFile'
 
 const FILE_NAME = 'app-settings.json'
-const USER_DATA_PATH = app.getPath('userData')
-const FILE_PATH = path.join(USER_DATA_PATH, FILE_NAME)
+
+const getFilePath = () => path.join(app.getPath('userData'), FILE_NAME)
+
+export enum EventName {
+  Save = 'settings-save',
+  Load = 'settings-load',
+  Updated = 'settings-updated',
+}
 
 export type Settings = Readonly<{
-  ws: {
+  ws: Readonly<{
     port: number
-  }
+  }>
 }>
 
 const defaultSettings: Settings = {
   ws: {
-    port:  1111,
+    port: 1111,
   }
 }
 
@@ -34,38 +40,42 @@ const validate = (settings: { [key: string]: any }): boolean => {
 let cache: Settings
 
 export const load = async () => {
+  const filePath = getFilePath()
+
   if (process.env.NODE_ENV === 'development') {
-    console.log(`Loading settings from ${FILE_PATH}`)
+    console.log(`Loading settings from ${filePath}`)
   }
 
   if (cache) {
     return cache
   }
 
-  const json = await readJsonFile(FILE_PATH)
+  const json = await readJsonFile(filePath)
   cache = json.filter(validate).getOrElse(defaultSettings) as Settings
 
   return cache
 }
 
 export const save = async (settings: Settings) => {
+  const filePath = getFilePath()
+
   if (process.env.NODE_ENV === 'development') {
-    console.log(`Saving settings from ${FILE_PATH}`)
+    console.log(`Saving settings from ${filePath}`)
   }
 
   cache = settings
 
-  return (await writeFile(FILE_PATH, JSON.stringify(settings))).isRight()
+  return (await writeFile(filePath, JSON.stringify(settings))).isRight()
 }
 
 export const registerListeners = (window: BrowserWindow) => {
-  ipcMain.on('settings-save', (_: any, settings: Settings) => {
-    // tslint:disable-next-line: no-floating-promises
-    save(settings)
+  ipcMain.on(EventName.Save, async (_: any, settings: Settings) => {
+    await save(settings)
+    window.webContents.send(EventName.Updated, settings)
   })
 
-  ipcMain.on('settings-update', async (_: any) => {
+  ipcMain.on(EventName.Load, async (_: any) => {
     const settings = await load()
-    window.webContents.send('settings-updated', settings)
+    window.webContents.send(EventName.Updated, settings)
   })
 }

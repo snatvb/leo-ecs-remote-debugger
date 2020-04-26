@@ -28,6 +28,11 @@ export const Theme = {
         m: 30,
       },
     },
+    button: {
+      height: {
+        m: 30,
+      },
+    },
     font: {
       s: 12,
       m: 14,

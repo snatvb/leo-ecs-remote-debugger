@@ -2,6 +2,7 @@ import { computed, observable, reaction } from 'mobx'
 import { Maybe } from 'monad-maniac'
 import { Nullable } from 'monad-maniac/types'
 import { Store } from '../Store'
+import { ElectronSettings } from './ElectronSettings'
 import { EntitiesSearch } from './EntitiesSearch'
 import { Modals } from './Modals/Modals'
 import { RequestPeriod } from './RequestPeriod'
@@ -17,6 +18,7 @@ export class UI {
 
   public requestPeriod: RequestPeriod
   public screen: ScreenStore
+  public electronSettings: ElectronSettings
 
   @observable
   private openedWorlds: [Nullable<number>, Nullable<number>] = [undefined, undefined]
@@ -29,6 +31,7 @@ export class UI {
     this.entitiesSearch = new EntitiesSearch()
     this.modals = new Modals()
     this.screen = new ScreenStore()
+    this.electronSettings = new ElectronSettings()
 
     this.initialize()
   }
