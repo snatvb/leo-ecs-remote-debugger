@@ -16,7 +16,7 @@ const NotFound = styled.div`
 export type Props = Readonly<{
   id: number
   worldId: number
-  componentsWithData: boolean
+  componentsWithData?: boolean
 }>
 
 export const EntityStore = React.memo(observer(({ worldId, id, componentsWithData = false }: Props) => {

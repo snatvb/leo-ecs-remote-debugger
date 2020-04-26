@@ -6,9 +6,24 @@ import { keys } from 'mobx'
 
 const MAX_RENDER_ENTITIES = 50
 
-const checkHasComponent = (entity: EcsEntity, query: string) => includes((component) => (
-  new RegExp(query, 'i').test(component.name)
-), entity.components.values())
+const checkHasComponent = (entity: EcsEntity, query: string) => {
+  const words = query.split(' ')
+  // tslint:disable-next-line:prefer-for-of
+  for (let index = 0; index < words.length; index++) {
+    const word = words[index].trim()
+    if (word.length === 0) { continue }
+
+    const contain = includes((component) => (
+      new RegExp(word, 'i').test(component.name)
+    ), entity.components.values())
+
+    if (contain) {
+      return true
+    }
+  }
+
+  return false
+}
 
 const filterEntities = (world: EcsWorld, query: string) => (entityId: number): boolean => (
   world
