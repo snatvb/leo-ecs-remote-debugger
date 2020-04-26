@@ -32,6 +32,15 @@ const Grid = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
 `
 
+const Empty = styled.div`
+width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: ${Theme.size.font.xxl}px;
+`
+
 type ConfirmWrapperProps = {
   show: boolean
 }
@@ -76,13 +85,17 @@ export const Worlds = React.memo(observer(() => {
   return (
     <Container>
       <ScrollWrapper ref={containerRef}>
-        <Scrollbars autoHeight autoHeightMax={height}>
-          <Grid>
-            {keys(store.worlds).map((worldId: number) => (
-              <WorldCard key={worldId} id={worldId} />
-            ))}
-          </Grid>
-        </Scrollbars>
+        {store.worlds.size === 0 ? (
+          <Empty>No worlds to display</Empty>
+        ) : (
+            <Scrollbars autoHeight autoHeightMax={height}>
+              <Grid>
+                {keys(store.worlds).map((worldId: number) => (
+                  <WorldCard key={worldId} id={worldId} />
+                ))}
+              </Grid>
+            </Scrollbars>
+          )}
       </ScrollWrapper>
       <ScreenFooter>
         <Exit onClick={handleExit}>
