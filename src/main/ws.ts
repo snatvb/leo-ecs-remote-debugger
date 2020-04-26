@@ -1,6 +1,7 @@
 import { BrowserWindow, ipcMain } from 'electron'
 import { Either } from 'monad-maniac'
 import * as WS from 'ws'
+import { Settings } from './app-settings'
 
 export type MessageHandler = (clientId: number, message: string) => any
 export type DisconnectedHandler = (clientId: number) => any
@@ -34,9 +35,9 @@ const getClient = (clients: Clients, id: number): Either.Shape<Error, WS> => {
   return client ? Either.right(client) : Either.left(new Error(`Client ${id} not found`))
 }
 
-export const create = (window: BrowserWindow) => {
+export const create = (window: BrowserWindow, settings: Settings) => {
   const getId = createIdCounter()
-  const wss = new WS.Server({ port: 1111 })
+  const wss = new WS.Server({ port: settings.ws.port })
   const clients: Clients = new Map()
 
   wss.addListener('connection', (client) => {

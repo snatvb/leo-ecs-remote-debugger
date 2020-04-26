@@ -4,10 +4,12 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
+import * as appSettings from './app-settings'
 import * as ws from './ws'
 
 let mainWindow: Electron.BrowserWindow | null
-function createWindow(): void {
+async function createWindow() {
+  const settings = await appSettings.load()
   // Create the browser window.
   mainWindow = new BrowserWindow({
     height: 768,
@@ -23,7 +25,9 @@ function createWindow(): void {
     resizable: true,
     center: true,
   })
-  const closeSocket = ws.create(mainWindow)
+
+  appSettings.registerListeners(mainWindow)
+  const closeSocket = ws.create(mainWindow, settings)
 
   // and load the index.html of the app.
   mainWindow.loadURL(
@@ -62,11 +66,11 @@ app.on('window-all-closed', () => {
   }
 })
 
-app.on('activate', () => {
+app.on('activate', async () => {
   // On OS X it"s common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
-    createWindow()
+    await createWindow()
   }
 })
 
