@@ -1,6 +1,6 @@
 {
   "name": "leo-ecs-remote-debugger",
-  "version": "2020.3.22-preview",
+  "version": "2020.5.22-preview",
   "description": "Electron debugger for leo ecs",
   "main": "./dist/main.bundle.js",
   "scripts": {
