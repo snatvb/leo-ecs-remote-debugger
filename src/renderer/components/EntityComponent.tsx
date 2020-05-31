@@ -1,5 +1,6 @@
 import { EcsComponent } from '@store/Models/EcsComponent'
 import { Theme } from '@theme/default'
+import { jsonParse } from '@utils/jsonParse'
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import styled from 'styled-components'
@@ -21,13 +22,15 @@ const Header = styled.div`
   display: flex;
   align-items: center;
 `
-const Content = styled.div`
+const Content = styled.pre`
+  font-family: ${Theme.fontFamily.code};
   background: ${Theme.color.bg.dark};
   border-bottom-left-radius: ${Theme.borderRadius.default}px;
   border-bottom-right-radius: ${Theme.borderRadius.default}px;
   padding: ${Theme.offset.m}px ${Theme.offset.l}px;
   display: flex;
   align-items: center;
+  overflow: auto;
 `
 
 export type Props = Readonly<{
@@ -41,7 +44,7 @@ export const EntityComponent = React.memo(observer(({ value, withData = false }:
       <Header>{value.name}</Header>
       {withData && (
         <Content>
-          {value.data}
+          {jsonParse(value.data).map((json) => JSON.stringify(json, null, 2)).getOrElse(value.data)}
         </Content>
       )}
     </Container>

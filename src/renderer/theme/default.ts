@@ -73,4 +73,8 @@ export const Theme = {
       entity: 640,
     }
   },
+  fontFamily: {
+    text: 'Tahoma, Arial, serif',
+    code: 'Tahoma, Arial, serif',
+  },
 }

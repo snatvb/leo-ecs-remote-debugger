@@ -44,6 +44,8 @@ const RemoveLink = styled.div`
 
 const Content = styled.div`
   padding: ${Theme.offset.s}px ${Theme.offset.s}px;
+  display: flex;
+  flex-wrap: wrap;
 `
 
 const Empty = styled.div`
