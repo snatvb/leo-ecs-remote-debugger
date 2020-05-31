@@ -1,5 +1,8 @@
 # LeoEcs Remote Debugger
 
+## RoadMap
+Look at [trello desktop](https://trello.com/b/k6zqxMqC)
+
 Remote debugger for [LeoEcs](https://github.com/Leopotam/ecs).
 
 Default port is `1111`.
