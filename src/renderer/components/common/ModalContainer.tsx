@@ -11,6 +11,9 @@ const HALF_ANIMATION_DURATION = Theme.transition.duration.default * 0.5
 
 const Container = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   position: absolute;
   background: rgba(0, 0, 0, .4);
   left: 0;

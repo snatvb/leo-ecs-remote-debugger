@@ -46,6 +46,7 @@ const Content = styled.div`
   padding: ${Theme.offset.s}px ${Theme.offset.s}px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `
 
 const Empty = styled.div`

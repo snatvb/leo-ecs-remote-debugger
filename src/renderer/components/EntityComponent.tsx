@@ -8,7 +8,7 @@ import styled from 'styled-components'
 const Container = styled.div`
   border: 1px solid ${Theme.color.bg.extraDark};
   font-size: ${Theme.size.font.xl}px;
-  margin: ${Theme.offset.m}px;
+  margin: ${Theme.offset.s}px;
   background: ${Theme.color.darkAction};
   border-radius: ${Theme.borderRadius.default}px;
   cursor: pointer;
@@ -18,16 +18,15 @@ const Header = styled.div`
   background: ${Theme.color.bg.extraDark};
   border-top-left-radius: ${Theme.borderRadius.default}px;
   border-top-right-radius: ${Theme.borderRadius.default}px;
-  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
+  padding: ${Theme.offset.s}px ${Theme.offset.m}px;
   display: flex;
   align-items: center;
 `
 const Content = styled.pre`
-  font-family: ${Theme.fontFamily.code};
   background: ${Theme.color.bg.dark};
   border-bottom-left-radius: ${Theme.borderRadius.default}px;
   border-bottom-right-radius: ${Theme.borderRadius.default}px;
-  padding: ${Theme.offset.m}px ${Theme.offset.l}px;
+  padding: ${Theme.offset.s}px ${Theme.offset.m}px;
   display: flex;
   align-items: center;
   overflow: auto;
