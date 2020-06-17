@@ -20,10 +20,10 @@ export type Props = Readonly<{
 
 export const WorldStore = React.memo(observer(({ id }: Props) => {
   const store = useStore()
+  const componentWithData = store.ui.settings.displayComponentContent
 
   return store.getWorld(id).caseOf({
     Nothing: () => <NotFound>World not found</NotFound>,
-    Just: (world) => <World world={world} />,
-
+    Just: (world) => <World world={world} componentWithData={componentWithData} />,
   })
 }))
