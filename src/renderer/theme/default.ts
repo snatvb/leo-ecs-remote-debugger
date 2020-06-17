@@ -33,6 +33,9 @@ export const Theme = {
         m: 30,
       },
     },
+    checkbox: {
+      m: 24,
+    },
     font: {
       s: 12,
       m: 14,

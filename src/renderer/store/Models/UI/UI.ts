@@ -1,4 +1,4 @@
-import { computed, observable, reaction } from 'mobx'
+import { computed, observable, observe, reaction } from 'mobx'
 import { Maybe } from 'monad-maniac'
 import { Nullable } from 'monad-maniac/types'
 import { Store } from '../Store'
@@ -7,6 +7,7 @@ import { EntitiesSearch } from './EntitiesSearch'
 import { Modals } from './Modals/Modals'
 import { RequestPeriod } from './RequestPeriod'
 import { ScreenStore } from './ScreenStore'
+import { Settings } from './Settings'
 
 export class UI {
   @observable
@@ -19,6 +20,7 @@ export class UI {
   public requestPeriod: RequestPeriod
   public screen: ScreenStore
   public electronSettings: ElectronSettings
+  public settings: Settings
 
   @observable
   private openedWorlds: [Nullable<number>, Nullable<number>] = [undefined, undefined]
@@ -32,6 +34,7 @@ export class UI {
     this.modals = new Modals()
     this.screen = new ScreenStore()
     this.electronSettings = new ElectronSettings()
+    this.settings = new Settings()
 
     this.initialize()
   }
@@ -103,5 +106,9 @@ export class UI {
         this.secondWorld.map(handleChangeWorlds)
       }
     )
+
+    observe(this.settings, () => {
+      this.settings.save()
+    })
   }
 }

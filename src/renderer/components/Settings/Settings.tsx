@@ -1,4 +1,5 @@
 import { parseInteger } from '@helpers/parseInteger'
+import { Checkbox } from '@renderer/components/common/Checkbox'
 import { FormLabel } from '@renderer/components/common/FormLabel'
 import { ThrottleInput } from '@renderer/components/common/ThrottleInput'
 import { useStore } from '@store/hook'
@@ -34,6 +35,10 @@ export const Settings = React.memo(observer(({
     })
   }, [])
 
+  const handleChangeDisplayComponentContent = React.useCallback((checked: boolean) => {
+    store.ui.settings.displayComponentContent = checked
+  }, [])
+
   return (
     <Container>
       <Title>Settings</Title>
@@ -54,6 +59,15 @@ export const Settings = React.memo(observer(({
             timeout={THROTTLE_INPUT_TIMEOUT}
             onChange={handleChangeOpenedEntity}
             initialValue={store.ui.requestPeriod.openedEntity.toString()}
+          />
+        </InputContainer>
+      </GridRow>
+      <GridRow>
+        <FormLabel>Display component content in world</FormLabel>
+        <InputContainer>
+          <Checkbox
+            checked={store.ui.settings.displayComponentContent}
+            onChange={handleChangeDisplayComponentContent}
           />
         </InputContainer>
       </GridRow>
