@@ -22,7 +22,9 @@
       "buildResources": "buildResources"
     },
     "mac": {
-      "target": "zip"
+      "target": "zip",
+      "asar": true,
+      "identity": null
     },
     "win": {
       "target": "zip",
