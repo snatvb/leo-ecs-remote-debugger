@@ -1,6 +1,6 @@
 # LeoEcs Remote Debugger
 
-## Screens
+## Screenshots
 ![main-screen][main-screen]
 ![settings-screen][settings-screen]
 
