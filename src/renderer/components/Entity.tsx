@@ -31,6 +31,7 @@ const Content = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: center;
 `
 
 export type Props = Readonly<{

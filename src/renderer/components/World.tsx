@@ -44,6 +44,9 @@ const RemoveLink = styled.div`
 
 const Content = styled.div`
   padding: ${Theme.offset.s}px ${Theme.offset.s}px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `
 
 const Empty = styled.div`
@@ -52,9 +55,10 @@ const Empty = styled.div`
 
 export type Props = Readonly<{
   world: EcsWorld
+  componentWithData?: boolean
 }>
 
-export const World = React.memo(observer(({ world }: Props) => {
+export const World = React.memo(observer(({ world, componentWithData = true }: Props) => {
   const entityKeys = getKeysWhatDisplay(world)
 
   return (
@@ -66,7 +70,11 @@ export const World = React.memo(observer(({ world }: Props) => {
       <SearchEntities world={world} />
       <Content>
         {entityKeys.map((entityId: number) => (
-          <EntityStore key={`${world.id}-${entityId}`} worldId={world.id} id={entityId} componentsWithData />
+          <EntityStore
+            key={`${world.id}-${entityId}`}
+            worldId={world.id} id={entityId}
+            componentsWithData={componentWithData}
+          />
         ))}
         {entityKeys.length === 0 && (
           <Empty>World don't have any entities</Empty>
