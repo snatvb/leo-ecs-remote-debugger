@@ -2,7 +2,7 @@
 
 Remote debugger for [LeoEcs](https://github.com/Leopotam/ecs).
 
-## Screens
+## Screenshots
 ![main-screen][main-screen]
 ![settings-screen][settings-screen]
 
