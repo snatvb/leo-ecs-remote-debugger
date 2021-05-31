@@ -59,7 +59,7 @@
     "rxjs": "6.5.4",
     "serializr": "2.0.3",
     "styled-components": "5.0.1",
-    "ws": "7.2.3"
+    "ws": "7.4.6"
   },
   "devDependencies": {
     "@types/mocha": "5.2.7",
